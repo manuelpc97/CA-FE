@@ -73,8 +73,8 @@ class Login extends Component {
                                             className="card-title text-center">SEGURÚ</h4>
                                     </div>
                                     <form id="loginForm" onSubmit={this.handleLoginSubmit}>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="username"
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" id="username"
                                                 placeholder="Nombre de Usuario" onChange={this.handleUsernameChange}
                                                 style={{
                                                     borderRadius: "15px",
@@ -83,8 +83,8 @@ class Login extends Component {
                                                     marginTop: "7%",
                                                 }} required />
                                         </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" id="password"
+                                        <div className="form-group">
+                                            <input type="password" className="form-control" id="password"
                                                 placeholder="Password" onChange={this.handlePasswordChange}
                                                 style={{
                                                     borderRadius: "15px",
@@ -93,7 +93,7 @@ class Login extends Component {
                                                     marginTop: "7%",
                                                 }} required />
                                         </div>
-                                        <button type="submit" class="btn btn-lg btn-primary btn-block text-uppercase"
+                                        <button type="submit" className="btn btn-lg btn-primary btn-block text-uppercase"
                                             style={{
                                                 backgroundColor: '#ff593f',
                                                 border: 'none',

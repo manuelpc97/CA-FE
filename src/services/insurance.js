@@ -8,4 +8,8 @@ export default class Insurance{
     async getAllInsurances(){
         return await axios.get(this.baseUlr + '/get');
     }
+
+    async createInsurance(params){
+        return await axios.post(this.baseUlr + '/create', params);
+    }
 }
