@@ -46,6 +46,7 @@ class Login extends Component {
             return <Redirect from="/" to="home" />
         }
         return (
+            // <div style={{ backgroundImage: "linear-gradient(45deg, #aae620, #ff593f)"}}>
             <div>
                 <div className="container">
                     <div className="row">
