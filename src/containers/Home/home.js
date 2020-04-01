@@ -13,6 +13,7 @@ class Home extends Component {
 
     componentDidMount(){
         this.insuranceService.getAllInsurances().then(response => {
+            console.log('response----> ', response.data);
             this.setState({insurances: response.data});
         }, (error) => {
             console.log('[ERROR]', error);

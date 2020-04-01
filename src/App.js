@@ -4,6 +4,11 @@ import Login from './containers/Login/Login';
 import PrivateRoute from './components/Common/PrivateRoute';
 import Layout from './components/Layout/layout';
 import Home from './containers/Home/home';
+import {
+    NotificationContainer,
+    NotificationManager
+} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 export const AuthContext = React.createContext({
     isAuthenticated: false,
     user: null,
@@ -19,19 +24,15 @@ class App extends Component {
     }
     componentDidMount() {
         const isAlreadyAuth = sessionStorage.getItem('isAuth')
-        console.log('isAlreadyAuth----> ', isAlreadyAuth);
         if (isAlreadyAuth === 'true') {
             this.setState({
                 isAlreadyAuth: true
             })
         }
-        // if(isAlreadyAuth !== 'true')
-        // sessionStorage.setItem('isAuth', false);
     }
 
     render() {
         let { isAlreadyAuth } = this.state;
-        // console.log('isAuthenticated ---> ', isAuthenticated);
         return (
             <div style={{ height: "100%" }}>
                 <AuthContext.Provider
@@ -55,6 +56,7 @@ class App extends Component {
                             </Switch>
                         </Layout>
                     </BrowserRouter>
+                    <NotificationContainer />
                 </AuthContext.Provider>
             </div>
         );
