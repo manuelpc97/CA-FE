@@ -12,7 +12,7 @@ class Register extends Component {
             lastname: '',
             id: '',
             email: '',
-            phone: ''
+            phone: '',
         }
         this.userService = new UserService();
     }
@@ -22,39 +22,65 @@ class Register extends Component {
         })
     }
 
+    closeModal = () => {
+        const initialState = {
+            username: '',
+            password: '',
+            firstname: '',
+            lastname: '',
+            id: '',
+            email: '',
+            phone: ''
+        }
+        this.setState({
+            ...initialState,
+        });
+        document.getElementById('closeRegisterModal').click();
+    }
+
     saveUser = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
         const {
             username,
             password,
-            firstname, 
-            lastname, 
+            firstname,
+            lastname,
             id,
-            email, 
+            email,
             phone
         } = this.state
 
         const body = {
             username,
-            password, 
-            firstname, 
+            password,
+            firstname,
             lastname,
             id,
-            email, 
+            email,
             phone
         }
 
         this.userService.createUser(body)
-        .then( response => {
-            console.log('response ---> ', response)
-            NotificationManager.success("Tu cuenta fue creado con éxito", `Bienvendio ${firstname}`);
-        })
-        .catch( error => {
-            console.log('error ---> ', error);
-            NotificationManager.success("Por favor intenta más tarde", "Hubo un error al crear tu cuenta");
-        })
+            .then(response => {
+                console.log('response ---> ', response)
+                NotificationManager.success("Tu cuenta fue creado con éxito", `Bienvendio ${firstname}`);
+                this.closeModal();
+
+            })
+            .catch(error => {
+                console.log('error ---> ', error);
+                NotificationManager.success("Por favor intenta más tarde", "Hubo un error al crear tu cuenta");
+            })
     }
     render() {
+        const { username,
+            password,
+            firstname,
+            lastname,
+            id,
+            email,
+            phone } = this.state
+
         return (
             <div className="modal" id="modalToRegister" tabIndex="-1" role="dialog">
                 <div className="modal-dialog" role="document">
@@ -89,23 +115,23 @@ class Register extends Component {
                             <form id="registerForm" onSubmit={this.saveUser}>
                                 <div class="form-group">
                                     <label>Nombre de Usuario</label>
-                                    <input type="text" class="form-control" id="username" onChange={this.getInputValues} required />
+                                    <input value={username} type="text" class="form-control" id="username" onChange={this.getInputValues} required />
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control" id="password" onChange={this.getInputValues} required />
+                                    <input value={password} type="password" class="form-control" id="password" onChange={this.getInputValues} required />
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input type="text" class="form-control" id="firstname" onChange={this.getInputValues} required />
+                                    <input value={firstname} type="text" class="form-control" id="firstname" onChange={this.getInputValues} required />
                                 </div>
                                 <div class="form-group">
                                     <label>Apellido</label>
-                                    <input type="text" class="form-control" id="lastname" onChange={this.getInputValues} required />
+                                    <input value={lastname} type="text" class="form-control" id="lastname" onChange={this.getInputValues} required />
                                 </div>
                                 <div class="form-group">
                                     <label>Número de Identidad</label>
-                                    <input type="tel" id="id"
+                                    <input value={id} type="tel" id="id"
                                         class="form-control"
                                         pattern="[0-9]{4}-[0-9]{4}-[0-9]{5}"
                                         placeholder="0000-0000-00000"
@@ -114,18 +140,17 @@ class Register extends Component {
                                 </div>
                                 <div class="form-group">
                                     <label>Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="email" onChange={this.getInputValues} required />
+                                    <input value={email} type="email" class="form-control" id="email" onChange={this.getInputValues} required />
                                 </div>
                                 <div class="form-group">
                                     <label>Teléfono</label>
-                                    <input type="tel" id="phone"
+                                    <input value={phone} type="tel" id="phone"
                                         class="form-control"
                                         pattern="[0-9]{4}-[0-9]{4}"
                                         placeholder="0000-0000"
                                         onChange={this.getInputValues}
                                         required />
                                 </div>
-
                                 <button type="submit" className="btn btn-primary" style={{
                                     backgroundColor: '#ff593f',
                                     border: 'none',
@@ -133,6 +158,9 @@ class Register extends Component {
                                     marginTop: '5%',
                                     fontFamily: 'sans-serif'
                                 }}>Guardar</button>
+                                <div>
+                                    <button style={{ display: "none" }} class="btn btn-secondary" id="closeRegisterModal" data-dismiss="modal">Close</button>
+                                </div>
                             </form>
                         </div>
                     </div>
