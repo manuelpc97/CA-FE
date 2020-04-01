@@ -10,13 +10,11 @@ class Navbar extends Component {
 
     componentDidMount() {
         const isAlreadyAuth = sessionStorage.getItem('isAuth');
-        console.log('isAlreadyAuth NAVBAR ++---> ', isAlreadyAuth);
         this.setState({isAlreadyAuth});
     }
 
     render() {
         const { isAlreadyAuth } = this.state;
-        console.log('this.props.location.state.id ---> ', this.props.location);
         if( isAlreadyAuth){
             return (
                 <nav className="navbar navbar-light" style={{ backgroundColor: "#e3f2fd" }}>

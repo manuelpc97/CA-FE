@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Login.css';
 import serviceLogin from '../../services/logIn';
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import Register from './Register/register'
 
 class Login extends Component {
@@ -18,14 +18,17 @@ class Login extends Component {
         const { usernameLogin, passwordLogin } = this.state;
         // e.preventDefault();
 
-        serviceLogin({ usernameLogin, passwordLogin })
+        serviceLogin({ username: usernameLogin, password: passwordLogin })
             .then(login => {
                 sessionStorage.setItem('isAuth', true);
                 console.log('login ----> ', login);
                 this.setState({ isValidAuth: true })
+
             })
             .catch(error => {
                 console.log('error----> ', error);
+                sessionStorage.setItem('isAuth', false);
+                this.setState({ isValidAuth: false })
             })
 
     }
@@ -43,17 +46,9 @@ class Login extends Component {
     render() {
 
         let modalToRegister = (
-            <Register/>
+            <Register />
         );
 
-        const { isValidAuth } = this.state;
-
-        if (isValidAuth === true) {
-            return <Redirect from="/" to={{
-                pathname: '/home',
-                state: { isAlreadyAuth: isValidAuth }
-            }} />
-        }
         return (
             // <div style={{ backgroundImage: "linear-gradient(45deg, #aae620, #ff593f)" }}>
             <>
@@ -102,7 +97,7 @@ class Login extends Component {
                                                         marginTop: "7%",
                                                     }} required />
                                             </div>
-                                            <button type="submit" className="btn btn-lg btn-primary btn-block text-uppercase"
+                                            <button id="login-button" type="submit" className="btn btn-lg btn-primary btn-block text-uppercase"
                                                 style={{
                                                     backgroundColor: '#ff593f',
                                                     border: 'none',

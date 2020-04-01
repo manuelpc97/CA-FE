@@ -5,8 +5,7 @@ import PrivateRoute from './components/Common/PrivateRoute';
 import Layout from './components/Layout/layout';
 import Home from './containers/Home/home';
 import {
-    NotificationContainer,
-    NotificationManager
+    NotificationContainer
 } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 export const AuthContext = React.createContext({
