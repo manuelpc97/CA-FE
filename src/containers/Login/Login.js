@@ -50,8 +50,9 @@ class Login extends Component {
 
         if (isValidAuth === true) {
             return <Redirect from="/" to={{
-                pathname: '/home',
-                state: { isAlreadyAuth: isValidAuth }
+                //pathname: '/home',
+                pathname: '/comparison',
+                //state: { isAlreadyAuth: isValidAuth }
             }} />
             return null;
         }

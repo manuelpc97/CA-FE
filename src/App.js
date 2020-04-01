@@ -4,6 +4,8 @@ import Login from './containers/Login/Login';
 import PrivateRoute from './components/Common/PrivateRoute';
 import Layout from './components/Layout/layout';
 import Home from './containers/Home/home';
+import Comparison from './components/Comparison';
+
 import {
     NotificationContainer,
     NotificationManager
@@ -51,6 +53,12 @@ class App extends Component {
                                     // isAuthenticated={isAuthenticated}
                                     method={'GET'}
                                     component={Home}
+                                />
+                                <PrivateRoute
+                                    path={'/comparison'}
+                                    // isAuthenticated={isAuthenticated}
+                                    method={'GET'}
+                                    component={Comparison}
                                 />
                             </Switch>
                         </Layout>
