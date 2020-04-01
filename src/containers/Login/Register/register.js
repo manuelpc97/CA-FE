@@ -113,39 +113,39 @@ class Register extends Component {
                         </div>
                         <div className="modal-body">
                             <form id="registerForm" onSubmit={this.saveUser}>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Nombre de Usuario</label>
-                                    <input value={username} type="text" class="form-control" id="username" onChange={this.getInputValues} required />
+                                    <input value={username} type="text" className="form-control" id="username" onChange={this.getInputValues} required />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Password</label>
-                                    <input value={password} type="password" class="form-control" id="password" onChange={this.getInputValues} required />
+                                    <input value={password} type="password" className="form-control" id="password" onChange={this.getInputValues} required />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Nombre</label>
-                                    <input value={firstname} type="text" class="form-control" id="firstname" onChange={this.getInputValues} required />
+                                    <input value={firstname} type="text" className="form-control" id="firstname" onChange={this.getInputValues} required />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Apellido</label>
-                                    <input value={lastname} type="text" class="form-control" id="lastname" onChange={this.getInputValues} required />
+                                    <input value={lastname} type="text" className="form-control" id="lastname" onChange={this.getInputValues} required />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Número de Identidad</label>
                                     <input value={id} type="tel" id="id"
-                                        class="form-control"
+                                        className="form-control"
                                         pattern="[0-9]{4}-[0-9]{4}-[0-9]{5}"
                                         placeholder="0000-0000-00000"
                                         onChange={this.getInputValues}
                                         required />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Correo Electrónico</label>
-                                    <input value={email} type="email" class="form-control" id="email" onChange={this.getInputValues} required />
+                                    <input value={email} type="email" className="form-control" id="email" onChange={this.getInputValues} required />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Teléfono</label>
                                     <input value={phone} type="tel" id="phone"
-                                        class="form-control"
+                                        className="form-control"
                                         pattern="[0-9]{4}-[0-9]{4}"
                                         placeholder="0000-0000"
                                         onChange={this.getInputValues}
@@ -159,7 +159,7 @@ class Register extends Component {
                                     fontFamily: 'sans-serif'
                                 }}>Guardar</button>
                                 <div>
-                                    <button style={{ display: "none" }} class="btn btn-secondary" id="closeRegisterModal" data-dismiss="modal">Close</button>
+                                    <button style={{ display: "none" }} className="btn btn-secondary" id="closeRegisterModal" data-dismiss="modal">Close</button>
                                 </div>
                             </form>
                         </div>
