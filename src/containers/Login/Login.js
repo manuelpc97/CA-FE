@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Login.css';
-import serviceLogin from '../../services/logIn';
+import UserService from '../../services/user';
 import { Redirect } from "react-router-dom";
 import Register from './Register/register'
 
@@ -12,13 +12,13 @@ class Login extends Component {
             passwordLogin: '',
             isValidAuth: false
         }
+        this.userService = new UserService();
     }
 
     handleLoginSubmit = (e) => {
         const { usernameLogin, passwordLogin } = this.state;
-        // e.preventDefault();
-
-        serviceLogin({ usernameLogin, passwordLogin })
+        e.preventDefault();
+        this.userService.logIn({ username: usernameLogin, password: passwordLogin })
             .then(login => {
                 sessionStorage.setItem('isAuth', true);
                 console.log('login ----> ', login);
@@ -53,6 +53,7 @@ class Login extends Component {
                 pathname: '/home',
                 state: { isAlreadyAuth: isValidAuth }
             }} />
+            return null;
         }
         return (
             // <div style={{ backgroundImage: "linear-gradient(45deg, #aae620, #ff593f)" }}>

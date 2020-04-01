@@ -47,7 +47,6 @@ class App extends Component {
                                     render={() => <Login />}
                                 />
                                 <PrivateRoute
-                                    exact
                                     path={'/home'}
                                     // isAuthenticated={isAuthenticated}
                                     method={'GET'}
