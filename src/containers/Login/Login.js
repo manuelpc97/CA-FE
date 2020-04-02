@@ -14,6 +14,25 @@ class Login extends Component {
         }
     }
 
+    // handleLoginSubmit = (e) => {
+    //     const { usernameLogin, passwordLogin } = this.state;
+    //      e.preventDefault();
+
+    //     serviceLogin({ username: usernameLogin, password: passwordLogin })
+    //         .then(login => {
+    //             sessionStorage.setItem('isAuth', true);
+    //             console.log('login ----> ', login);
+    //             this.setState({ isValidAuth: true })
+
+    //         })
+    //         .catch(error => {
+    //             console.log('error----> ', error);
+    //             sessionStorage.setItem('isAuth', false);
+    //             this.setState({ isValidAuth: false })
+    //         })
+
+    // }
+
     handleUsernameChange = (e) => {
         let newValue = e.target.value
         this.setState({ usernameLogin: newValue });
@@ -41,6 +60,16 @@ class Login extends Component {
         
         if (this.state.isValidAuth) {
             return <Redirect to="/home" />;
+        }
+
+        const { isValidAuth } = this.state;
+
+        if (isValidAuth === true) {
+            return <Redirect from="/" to={{
+                pathname: '/comparison'
+                //pathname: '/home',
+                //state: { isAlreadyAuth: isValidAuth }
+            }} />
         }
 
         return (
