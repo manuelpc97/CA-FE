@@ -10,27 +10,27 @@ class Navbar extends Component {
 
     componentDidMount() {
         const isAlreadyAuth = sessionStorage.getItem('isAuth');
-        this.setState({isAlreadyAuth});
+        this.setState({ isAlreadyAuth });
     }
 
     render() {
         const { isAlreadyAuth } = this.state;
-        if( isAlreadyAuth){
+        if (isAlreadyAuth) {
             return (
-                <nav className="navbar navbar-light" style={{ backgroundColor: "#e3f2fd" }}>
-                    <a class="navbar-brand" href="/">Navbar</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-                            <a class="nav-item nav-link" href="/">Features</a>
-                            <a class="nav-item nav-link" href="/">Pricing</a>
-                            <a class="nav-item nav-link disabled" href="/">Disabled</a>
-                        </div>
+                <nav className="navbar navbar-default fixed-top" style={{ backgroundColor: "rgb(247, 232, 229)" }}>
+                    <div class="container">
+                        <a class="navbar-brand" href="/home" style={{
+                            fontFamily: "sans-serif",
+                            letterSpacing: "0.7em",
+                            color: "black"
+                        }}>SEGURÚ</a>
+                        <button class="btn" type="submit" style={{
+                            color: "#ff593f",
+                            borderColor: "#ff593f",
+                            fontFamily: "sans-serif"
+                        }}>Salir</button>
                     </div>
-                </nav>
+                </nav >
             )
         }
 

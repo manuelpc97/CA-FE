@@ -5,7 +5,7 @@ import PrivateRoute from './components/Common/PrivateRoute';
 import Layout from './components/Layout/layout';
 import Home from './containers/Home/home';
 import Comparison from './components/Comparison';
-
+import FirstForm from './containers/Forms/forms';
 import {
     NotificationContainer
 } from 'react-notifications';
@@ -58,6 +58,12 @@ class App extends Component {
                                     // isAuthenticated={isAuthenticated}
                                     method={'GET'}
                                     component={Comparison}
+                                />
+                                <PrivateRoute
+                                    path={'/form'}
+                                    // isAuthenticated={isAuthenticated}
+                                    method={'GET'}
+                                    component={FirstForm}
                                 />
                             </Switch>
                         </Layout>
