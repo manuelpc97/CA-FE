@@ -4,7 +4,7 @@ const Layout = props => {
 
     return (
         <div className="d-flex flex-column h-100">
-            <Navbar/>
+            <Navbar isAlreadyAuth = {props.isAlreadyAuth}/>
             <main role="main">
                 {props.children}
             </main>

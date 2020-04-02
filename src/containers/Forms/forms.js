@@ -415,26 +415,25 @@ function SecondPart(props) {
 }
 
 
-function Step3(props) {
+function ThirdPart(props) {
     if (props.currentStep !== 3) {
         return null
     }
     return (
-        <React.Fragment>
+        <>
             <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                    className="form-control"
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder="Enter password"
-                    value={props.password}
-                    onChange={props.handleChange}
-                />
+                <label>Año del Vehículo</label>
+                <input 
+                // value={address} 
+                type="number" 
+                className="form-control" 
+                id="year" 
+                min="1970"
+                max="2020"
+                // onChange={handleChange} 
+                required />
             </div>
-            <button className="btn btn-success btn-block">Sign up</button>
-        </React.Fragment>
+        </>
     );
 }
 

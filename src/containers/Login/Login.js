@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Login.css';
 import serviceLogin from '../../services/logIn';
-// import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Register from './Register/register'
 
 class Login extends Component {
@@ -14,25 +14,6 @@ class Login extends Component {
         }
     }
 
-    handleLoginSubmit = (e) => {
-        const { usernameLogin, passwordLogin } = this.state;
-        // e.preventDefault();
-
-        serviceLogin({ username: usernameLogin, password: passwordLogin })
-            .then(login => {
-                sessionStorage.setItem('isAuth', true);
-                console.log('login ----> ', login);
-                this.setState({ isValidAuth: true })
-
-            })
-            .catch(error => {
-                console.log('error----> ', error);
-                sessionStorage.setItem('isAuth', false);
-                this.setState({ isValidAuth: false })
-            })
-
-    }
-
     handleUsernameChange = (e) => {
         let newValue = e.target.value
         this.setState({ usernameLogin: newValue });
@@ -43,11 +24,24 @@ class Login extends Component {
         this.setState({ passwordLogin: newValue });
     }
 
+    callFunctionSubmit = async (event) => {
+        event.preventDefault();
+        const { usernameLogin, passwordLogin } = this.state
+        const response = await this.props.handleLoginSubmit(usernameLogin, passwordLogin)
+        if( response ){
+            this.setState({
+                isValidAuth: true
+            })
+        }
+    }
     render() {
-
         let modalToRegister = (
             <Register />
         );
+        
+        if (this.state.isValidAuth) {
+            return <Redirect to="/home" />;
+        }
 
         return (
             // <div style={{ backgroundImage: "linear-gradient(45deg, #aae620, #ff593f)" }}>
@@ -78,7 +72,7 @@ class Login extends Component {
                                             }}
                                                 className="card-title text-center">SEGURÚ</h4>
                                         </div>
-                                        <form id="loginForm" onSubmit={this.handleLoginSubmit} action="/home">
+                                        <form id="loginForm" onSubmit={this.callFunctionSubmit} action="/home">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="usernameLogin"
                                                     placeholder="Nombre de Usuario" onChange={this.handleUsernameChange}

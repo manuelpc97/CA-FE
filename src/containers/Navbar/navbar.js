@@ -9,13 +9,14 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
-        const isAlreadyAuth = sessionStorage.getItem('isAuth');
-        this.setState({ isAlreadyAuth });
+        // const isAlreadyAuth = localStorage.getItem('isAuth');
+        // const isAlreadyBool = isAlreadyAuth === "true" ? true : false;
+        // this.setState({ isAlreadyAuth: isAlreadyBool });
     }
 
     render() {
-        const { isAlreadyAuth } = this.state;
-        if (isAlreadyAuth) {
+        const { isAlreadyAuth } = this.props;
+        if (isAlreadyAuth || localStorage.getItem('isAuth')) {
             return (
                 <nav className="navbar navbar-default fixed-top" style={{ backgroundColor: "rgb(247, 232, 229)" }}>
                     <div class="container">
