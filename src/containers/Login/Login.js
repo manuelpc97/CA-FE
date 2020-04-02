@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Login.css';
 import serviceLogin from '../../services/logIn';
-// import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Register from './Register/register'
 
 class Login extends Component {
@@ -16,7 +16,7 @@ class Login extends Component {
 
     handleLoginSubmit = (e) => {
         const { usernameLogin, passwordLogin } = this.state;
-        // e.preventDefault();
+         e.preventDefault();
 
         serviceLogin({ username: usernameLogin, password: passwordLogin })
             .then(login => {
@@ -48,6 +48,16 @@ class Login extends Component {
         let modalToRegister = (
             <Register />
         );
+
+        const { isValidAuth } = this.state;
+
+        if (isValidAuth === true) {
+            return <Redirect from="/" to={{
+                pathname: '/comparison'
+                //pathname: '/home',
+                //state: { isAlreadyAuth: isValidAuth }
+            }} />
+        }
 
         return (
             // <div style={{ backgroundImage: "linear-gradient(45deg, #aae620, #ff593f)" }}>
