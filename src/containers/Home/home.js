@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import InsuranceService from '../../services/insurance';
+import Form from '../Forms/Form';
 
 class Home extends Component {
 
@@ -7,7 +8,8 @@ class Home extends Component {
         super(props);
         this.state = {
             insurances: [],
-            insuranceCards: ''
+            insuranceCards: '',
+            showForm: false
         }
         this.insuranceService = new InsuranceService();
     }
@@ -106,7 +108,9 @@ class Home extends Component {
                                             display: "contents",
                                             color: "white",
                                             cursor: "pointer"
-                                        }} href="/form">Solicita Información</a>
+                                        }} data-target = '#modalForm'
+                                        data-toggle = 'modal'
+                                        onClick = {() => this.setState({showForm: true})}>Solicita Información</a>
                                     </div>
                                 </div>
                             </div>
@@ -142,9 +146,27 @@ class Home extends Component {
                 <div class="row row-cols-1 row-cols-md-3" style={{ margin: "4%" }}>
                     {cards}
                 </div >
-
+                <Form questions = {this.getQuestions()} visible = {this.state.showForm}/>
             </div>
         )
+    }
+
+    getQuestions(){
+        return [
+            this.getQuestion('Nombre y Apellido', 'text', [], 0,''),
+            this.getQuestion('Número de identidad', 'text', [], 1,''),
+            this.getQuestion('Correo electrónico', 'email', [], 2,''),
+            this.getQuestion('Número de teléfono', 'text', [], 3,''),
+            this.getQuestion('Ciudad de residencia', 'text', [], 4,''),
+            this.getQuestion('Tipo de vehículo', 'text', [], 5,''),
+            this.getQuestion('Estado del vehículo', 'text', [], 6,''),
+            this.getQuestion('Modelo de vehículo', 'text', [], 7,''),
+            this.getQuestion('Año del vehículo','text', [], 8,'')
+        ]
+    }
+
+    getQuestion(question, type, options, id,answer){
+        return {question, type, options, id, answer};
     }
 }
 
