@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { formatDate, parseDate } from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
-import { throwStatement } from "@babel/types";
 
 class Forms extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            currentStep: 2,
+            currentStep: 1,
             name: '',
             id: '',
             email: '',
@@ -24,8 +23,8 @@ class Forms extends Component {
             modelCar: null,
             enableNextButton: {
                 1: false,
-                2: false,
-                3: false,
+                2: true,
+                3: true,
             }
         }
     }
@@ -36,32 +35,39 @@ class Forms extends Component {
 
     getInputValues = (event) => {
         const { currentStep } = this.state;
-        console.log('---> ', event.target.id);
-        console.log('--->', event.target.value);
         this.setState({
             [event.target.id]: event.target.value
         })
 
         if (currentStep === 1) {
             this.validateFirstValues();
+        }else if(currentStep === 2){
+            this.validateSecondValues();
         }
     }
     
     getInputChecked = (event) => {
+        const { currentStep } = this.state;
+
         this.setState({
             [event.target.id]: event.target.checked
         })
 
-        console.log('---> ', event.target.id);
-        console.log('--->', event.target.checked);
+        if(currentStep === 2){
+            this.validateSecondValues();
+        }
     }
 
     getRadioValues = (event) => {
-        console.log('---> ', event.target.name);
-        console.log('--->', event.target.value);
+        const { currentStep } = this.state;
         this.setState({
             [event.target.name]: event.target.value
         })
+
+        if(currentStep === 2){
+            console.log('entra es dossss', currentStep);
+            this.validateSecondValues();
+        }
     }
     validateFirstValues = () => {
         const { name, id, email, phone, address, enableNextButton } = this.state;
@@ -81,8 +87,7 @@ class Forms extends Component {
 
     validateSecondValues = () => {
         const { alreadyHasInsurance, statusOfCar, kindOfCar, brandCar, modelCar, enableNextButton } = this.state;
-        if (!!(alreadyHasInsurance) && !!(statusOfCar) && !!(kindOfCar) &&
-            !!(brandCar) && !!(modelCar)) {
+        if (!!(alreadyHasInsurance) && !!(statusOfCar) && !!(kindOfCar) && !!(brandCar)) {
             enableNextButton[2] = true
             this.setState({
                 enableNextButton: enableNextButton
@@ -96,11 +101,17 @@ class Forms extends Component {
     }
 
     getRadioBtnValue = (event) => {
+        const { currentStep } = this.state;
+
         const radioBtnSelected = event.target.id
         if (radioBtnSelected.indexOf("not") !== -1) {
             this.setState({ alreadyHasInsurance: false })
         } else {
             this.setState({ alreadyHasInsurance: true })
+        }
+
+        if(currentStep === 2){
+            // this.validateSecondValues();
         }
     }
 
@@ -143,10 +154,7 @@ class Forms extends Component {
     }
 
     nextButton() {
-        // let currentStep = this.state.currentStep;
         let { currentStep, enableNextButton } = this.state;
-        console.log('enableNextButton --->', enableNextButton)
-        // const isEnabled = !enableNextButton[currentStep] ? "disabled" : "";
         if (currentStep < 3) {
             if (!enableNextButton[currentStep]) {
                 return (
@@ -324,28 +332,28 @@ function SecondPart(props) {
             <div className="form-group">
                 <label>¿Tiene actualmente una póliza de seguro de vehículo vigente?</label>
                 <br />
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="hasInsurance"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="alreadyhasInsurance"
                         onChange={getRadioBtnValue} />
-                    <label class="custom-control-label" for="hasInsurance">Si</label>
+                    <label className="custom-control-label" for="hasInsurance">Si</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="notHasInsurance"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="alreadyhasInsurance"
                         onChange={getRadioBtnValue} />
-                    <label class="custom-control-label" for="notHasInsurance">No</label>
+                    <label className="custom-control-label" for="notHasInsurance">No</label>
                 </div>
                 {alreadyHasInsurance ?
                     (
                         <>
                             <div className="form-group">
                                 <label>¿Con cuál compañía de seguros?</label>
-                                <select id="insuranceCompanyName" value={insuranceCompanyName} onChange={handleChange} class="custom-select custom-select-sm">
+                                <select id="insuranceCompanyName" value={insuranceCompanyName} onChange={handleChange} className="custom-select custom-select-sm">
                                     <option value="Seguro Atlántida">Seguro Atlántida</option>
                                     <option value="Ficohsa Seguros">Ficohsa Seguros</option>
                                     <option value="Mapfre Seguros">Mapfre Seguros</option>
@@ -405,9 +413,9 @@ function SecondPart(props) {
                                         weekdaysShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
                                     }}
                                 />
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="notSure" onChange={getInputChecked}/>
-                                    <label class="custom-control-label" for="notSure">No estoy seguro</label>
+                                <div className="custom-control custom-checkbox">
+                                    <input type="checkbox" className="custom-control-input" id="notSure" onChange={getInputChecked}/>
+                                    <label className="custom-control-label" for="notSure">No estoy seguro</label>
                                 </div>
                             </div>
                         </>
@@ -418,84 +426,84 @@ function SecondPart(props) {
             <div className="form-group">
                 <label>Estado del Vehículo</label>
                 <br />
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="nuevoAgencia"
                         value="nuevoAgencia"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="statusOfCar"
                         onChange={getRadioValues}
                     />
-                    <label class="custom-control-label" for="nuevoAgencia">Nuevo de Agencia</label>
+                    <label className="custom-control-label" for="nuevoAgencia">Nuevo de Agencia</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="usadoAgencia"
                         value="usadoAgencia"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="statusOfCar"
                         onChange={getRadioValues}
                     />
-                    <label class="custom-control-label" for="usadoAgencia">Usado de Agencia</label>
+                    <label className="custom-control-label" for="usadoAgencia">Usado de Agencia</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="importado"
                         value="importado"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="statusOfCar"
                         onChange={getRadioValues}
                     />
-                    <label class="custom-control-label" for="importado">Usado Importado</label>
+                    <label className="custom-control-label" for="importado">Usado Importado</label>
                 </div>
             </div>
             <div className="form-group">
                 <label>Tipo de vehículo</label>
                 <br />
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="turismo"
                         value="Turismo"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="kindOfCar"
                         onChange={getRadioValues}
                     />
-                    <label class="custom-control-label" for="turismo">Turismo</label>
+                    <label className="custom-control-label" for="turismo">Turismo</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="pickup"
                         value="pickup"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="kindOfCar"
                         onChange={getRadioValues}
                     />
-                    <label class="custom-control-label" for="pickup">Pick Up</label>
+                    <label className="custom-control-label" for="pickup">Pick Up</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="camioneta"
                         value="camioneta/suv"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="kindOfCar"
                         onChange={getRadioValues}
                     />
-                    <label class="custom-control-label" for="camioneta">Camionea/SUV</label>
+                    <label className="custom-control-label" for="camioneta">Camionea/SUV</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="camion"
                         value="camion"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="kindOfCar"
                         onChange={getRadioValues}
                     />
-                    <label class="custom-control-label" for="camion">Camion</label>
+                    <label className="custom-control-label" for="camion">Camion</label>
                 </div>
             </div>
             <div className="form-group">
                 <label>Marca del Vehículo</label>
-                <select class="custom-select custom-select-sm" id="brandCar" value={brandCar} onChange={handleChange}>
+                <select className="custom-select custom-select-sm" id="brandCar" value={brandCar} onChange={handleChange}>
                     <option selected>Selecciona una opción</option>
                     <option value="Toyota">Toyota</option>
                     <option value="Hyundai">Hyundai</option>
@@ -504,7 +512,7 @@ function SecondPart(props) {
             </div>
             <div className="form-group">
                 <label>Modelo de Vehículo</label>
-                <select class="custom-select custom-select-sm" id="modelCar" value={modelCar} onChange={handleChange}>
+                <select className="custom-select custom-select-sm" id="modelCar" value={modelCar} onChange={handleChange}>
                     <option selected>Selecciona una opción</option>
                     <option value="modelo1">Modelo 1</option>
                     <option value="modelo2">Modelo 2</option>
@@ -549,50 +557,50 @@ function ThirdPart(props) {
             <div className="form-group">
                 <label>¿Cómo escuchó de Segurú? </label>
                 <br />
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="recomendacion"
                         value="recomendacion"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="aboutSeguru"
                     // onChange={getRadioBtnValue} 
                     />
-                    <label class="custom-control-label" for="recomendacion">Recomendación de amigos</label>
+                    <label className="custom-control-label" for="recomendacion">Recomendación de amigos</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="fb/ig"
                         value="fb/ig"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="aboutSeguru"
                     // onChange={getRadioBtnValue} 
                     />
-                    <label class="custom-control-label" for="fb/ig">Facebook/Instagram</label>
+                    <label className="custom-control-label" for="fb/ig">Facebook/Instagram</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
+                <div className="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="google"
                         value="google"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         name="aboutSeguru"
                     // onChange={getRadioBtnValue} 
                     />
-                    <label class="custom-control-label" for="google">Google</label>
+                    <label className="custom-control-label" for="google">Google</label>
                 </div>
             </div>
             <div className="form-group">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="termsCondition" required />
-                    <label class="custom-control-label" for="termsCondition">
+                <div className="custom-control custom-checkbox">
+                    <input type="checkbox" className="custom-control-input" id="termsCondition" required />
+                    <label className="custom-control-label" for="termsCondition">
                         Acepto los términos y condiciones de uso y el aviso de privacidad y declaro que la información es verdadera
                     </label>
                 </div>
             </div>
 
             <div className="form-group">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="termsCondition" />
-                    <label class="custom-control-label" for="termsCondition">
+                <div className="custom-control custom-checkbox">
+                    <input type="checkbox" className="custom-control-input" id="termsCondition" />
+                    <label className="custom-control-label" for="termsCondition">
                         Quiero que un asesor profesional de Segurú me contacte para brindarme más explicación
                     </label>
                 </div>
