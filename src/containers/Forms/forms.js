@@ -2,48 +2,104 @@ import React, { Component } from "react";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { formatDate, parseDate } from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
+import { throwStatement } from "@babel/types";
 
 class Forms extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            currentStep: 1,
+            currentStep: 2,
             name: '',
             id: '',
             email: '',
             phone: '',
             address: '',
             alreadyHasInsurance: false,
-            selectedDay: null
-            // name, id, email, phone, address 
+            insuranceCompanyName: '',
+            expirationDate: null,
+            statusOfCar: null,
+            kindOfCar: null,
+            notSure: null,
+            brandCar: null,
+            modelCar: null,
+            enableNextButton: {
+                1: false,
+                2: false,
+                3: false,
+            }
         }
     }
 
     handleDayChange = (day) => {
-        this.setState({ selectedDay: day });
+        this.setState({ expirationDate: day });
     }
 
-    // handleChange = event => {
-    //     const { name, value } = event.target
-    //     this.setState({
-    //         [name]: value
-    //     })
-    // }
-
     getInputValues = (event) => {
+        const { currentStep } = this.state;
+        console.log('---> ', event.target.id);
+        console.log('--->', event.target.value);
         this.setState({
             [event.target.id]: event.target.value
         })
+
+        if (currentStep === 1) {
+            this.validateFirstValues();
+        }
+    }
+    
+    getInputChecked = (event) => {
+        this.setState({
+            [event.target.id]: event.target.checked
+        })
+
+        console.log('---> ', event.target.id);
+        console.log('--->', event.target.checked);
+    }
+
+    getRadioValues = (event) => {
+        console.log('---> ', event.target.name);
+        console.log('--->', event.target.value);
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+    validateFirstValues = () => {
+        const { name, id, email, phone, address, enableNextButton } = this.state;
+        if (!!(name) && !!(id) && !!(email) &&
+            !!(phone) && !!(address)) {
+            enableNextButton[1] = true
+            this.setState({
+                enableNextButton: enableNextButton
+            })
+        } else {
+            enableNextButton[1] = false
+            this.setState({
+                enableNextButton: enableNextButton
+            })
+        }
+    }
+
+    validateSecondValues = () => {
+        const { alreadyHasInsurance, statusOfCar, kindOfCar, brandCar, modelCar, enableNextButton } = this.state;
+        if (!!(alreadyHasInsurance) && !!(statusOfCar) && !!(kindOfCar) &&
+            !!(brandCar) && !!(modelCar)) {
+            enableNextButton[2] = true
+            this.setState({
+                enableNextButton: enableNextButton
+            })
+        } else {
+            enableNextButton[2] = false
+            this.setState({
+                enableNextButton: enableNextButton
+            })
+        }
     }
 
     getRadioBtnValue = (event) => {
-        console.log('event.target radio--->', event.target.id);
         const radioBtnSelected = event.target.id
         if (radioBtnSelected.indexOf("not") !== -1) {
-            console.log('NO TIENE')
             this.setState({ alreadyHasInsurance: false })
         } else {
-            console.log('SI TIENE')
             this.setState({ alreadyHasInsurance: true })
         }
     }
@@ -51,14 +107,10 @@ class Forms extends Component {
     handleSubmit = (event) => {
         event.preventDefault()
         const { email, username, password } = this.state
-        // alert(`Your registration detail: \n 
-        //    Email: ${email} \n 
-        //    Username: ${username} \n
-        //    Password: ${password}`)
     }
 
     next = () => {
-        let currentStep = this.state.currentStep
+        let { currentStep } = this.state;
         currentStep = currentStep >= 2 ? 3 : currentStep + 1
         this.setState({
             currentStep: currentStep
@@ -83,7 +135,7 @@ class Forms extends Component {
                 <button
                     className="btn btn-secondary"
                     type="button" onClick={this.prev}>
-                    Previous
+                    Anterior
       </button>
             )
         }
@@ -91,17 +143,33 @@ class Forms extends Component {
     }
 
     nextButton() {
-        let currentStep = this.state.currentStep;
+        // let currentStep = this.state.currentStep;
+        let { currentStep, enableNextButton } = this.state;
+        console.log('enableNextButton --->', enableNextButton)
+        // const isEnabled = !enableNextButton[currentStep] ? "disabled" : "";
         if (currentStep < 3) {
+            if (!enableNextButton[currentStep]) {
+                return (
+                    <button
+                        className="btn btn-primary float-right"
+                        type="button"
+                        onClick={this.next}
+                        disabled>
+                        Siguiente
+                    </button>
+                )
+            }
+
             return (
                 <button
                     className="btn btn-primary float-right"
-                    type="button" onClick={this.next}>
-                    Next
-      </button>
+                    type="button"
+                    onClick={this.next}>
+                    Siguiente
+                </button>
             )
         }
-        return null;
+        return (null)
     }
 
     render() {
@@ -112,17 +180,38 @@ class Forms extends Component {
             phone,
             address,
             alreadyHasInsurance,
-            selectedDay,
+            expirationDate,
+            brandCar,
+            modelCar
         } = this.state;
         return (
-            <div>
-                {/* <p>Step {this.state.currentStep} </p> */}
+            <>
+                <div style={{
+                    textAlign: "center",
+                    marginBottom: "3%",
+                    fontFamily: "sans-serif",
+                    fontSize: "16px",
 
-                <div className="container" style={{
-                    marginTop: "7%"
                 }}>
-                    < div className="row" >
-                        <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <h4><strong>Solicitud de Información</strong></h4>
+                    <br />
+                    <p>
+                        Ayúdenos a responder un breve cuestionario para brindarle gratuitamente toda la información acerca de las ofertas de seguro de vehículo disponibles en el mercado.
+                    </p>
+                </div>
+                <div className="container" style={{
+                    fontFamily: "sans-serif",
+                    fontSize: "16px",
+                }}>
+                    <div className="row">
+                        <div className="col-sm-2" style={{
+                            display: "block",
+                            margin: "auto"
+                        }}>
+                            <img src="/images/paper.png" alt="SEGURÚ" style={{
+                            }} />
+                        </div>
+                        <div className="col-sm-8" style={{ marginLeft: "16%" }}>
                             <form onSubmit={this.handleSubmit}>
                                 <FirstPart
                                     currentStep={this.state.currentStep}
@@ -134,7 +223,6 @@ class Forms extends Component {
                                     address={address}
                                 />
 
-                                {/* SecondPart */}
                                 <SecondPart
                                     currentStep={this.state.currentStep}
                                     getRadioBtnValue={this.getRadioBtnValue}
@@ -143,9 +231,18 @@ class Forms extends Component {
                                     phone={phone}
                                     email={email}
                                     address={address}
-                                    selectedDay={selectedDay}
+                                    selectedDay={expirationDate}
                                     alreadyHasInsurance={alreadyHasInsurance}
                                     handleDayChange={this.handleDayChange}
+                                    handleChange={this.getInputValues}
+                                    getRadioValues={this.getRadioValues}
+                                    brandCar={brandCar}
+                                    modelCar={modelCar}
+                                    getInputChecked={this.getInputChecked}
+                                />
+
+                                <ThirdPart
+                                    currentStep={this.state.currentStep}
                                 />
                                 {this.previousButton()}
                                 {this.nextButton()}
@@ -154,7 +251,7 @@ class Forms extends Component {
                         </div>
                     </div>
                 </div>
-            </div >
+            </>
         );
     }
 }
@@ -213,14 +310,20 @@ function SecondPart(props) {
         address,
         getRadioBtnValue,
         alreadyHasInsurance,
+        insuranceCompanyName,
         selectedDay,
-        handleDayChange
+        handleChange,
+        handleDayChange,
+        getRadioValues,
+        getInputChecked,
+        brandCar,
+        modelCar
     } = props;
-    console.log('alreadyHasInsurance PROPS ---> ', alreadyHasInsurance);
     return (
         <>
             <div className="form-group">
                 <label>¿Tiene actualmente una póliza de seguro de vehículo vigente?</label>
+                <br />
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                         id="hasInsurance"
@@ -242,8 +345,7 @@ function SecondPart(props) {
                         <>
                             <div className="form-group">
                                 <label>¿Con cuál compañía de seguros?</label>
-                                <select class="custom-select custom-select-sm">
-                                    <option selected>Selecciona una opción</option>
+                                <select id="insuranceCompanyName" value={insuranceCompanyName} onChange={handleChange} class="custom-select custom-select-sm">
                                     <option value="Seguro Atlántida">Seguro Atlántida</option>
                                     <option value="Ficohsa Seguros">Ficohsa Seguros</option>
                                     <option value="Mapfre Seguros">Mapfre Seguros</option>
@@ -304,7 +406,7 @@ function SecondPart(props) {
                                     }}
                                 />
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="notSure" />
+                                    <input type="checkbox" class="custom-control-input" id="notSure" onChange={getInputChecked}/>
                                     <label class="custom-control-label" for="notSure">No estoy seguro</label>
                                 </div>
                             </div>
@@ -322,7 +424,7 @@ function SecondPart(props) {
                         value="nuevoAgencia"
                         class="custom-control-input"
                         name="statusOfCar"
-                    // onChange={getRadioBtnValue} 
+                        onChange={getRadioValues}
                     />
                     <label class="custom-control-label" for="nuevoAgencia">Nuevo de Agencia</label>
                 </div>
@@ -332,7 +434,7 @@ function SecondPart(props) {
                         value="usadoAgencia"
                         class="custom-control-input"
                         name="statusOfCar"
-                    // onChange={getRadioBtnValue} 
+                        onChange={getRadioValues}
                     />
                     <label class="custom-control-label" for="usadoAgencia">Usado de Agencia</label>
                 </div>
@@ -342,7 +444,7 @@ function SecondPart(props) {
                         value="importado"
                         class="custom-control-input"
                         name="statusOfCar"
-                    // onChange={getRadioBtnValue} 
+                        onChange={getRadioValues}
                     />
                     <label class="custom-control-label" for="importado">Usado Importado</label>
                 </div>
@@ -356,7 +458,7 @@ function SecondPart(props) {
                         value="Turismo"
                         class="custom-control-input"
                         name="kindOfCar"
-                    // onChange={getRadioBtnValue} 
+                        onChange={getRadioValues}
                     />
                     <label class="custom-control-label" for="turismo">Turismo</label>
                 </div>
@@ -366,7 +468,7 @@ function SecondPart(props) {
                         value="pickup"
                         class="custom-control-input"
                         name="kindOfCar"
-                    // onChange={getRadioBtnValue} 
+                        onChange={getRadioValues}
                     />
                     <label class="custom-control-label" for="pickup">Pick Up</label>
                 </div>
@@ -376,7 +478,7 @@ function SecondPart(props) {
                         value="camioneta/suv"
                         class="custom-control-input"
                         name="kindOfCar"
-                    // onChange={getRadioBtnValue} 
+                        onChange={getRadioValues}
                     />
                     <label class="custom-control-label" for="camioneta">Camionea/SUV</label>
                 </div>
@@ -386,27 +488,27 @@ function SecondPart(props) {
                         value="camion"
                         class="custom-control-input"
                         name="kindOfCar"
-                    // onChange={getRadioBtnValue} 
+                        onChange={getRadioValues}
                     />
                     <label class="custom-control-label" for="camion">Camion</label>
                 </div>
             </div>
             <div className="form-group">
                 <label>Marca del Vehículo</label>
-                <select class="custom-select custom-select-sm">
+                <select class="custom-select custom-select-sm" id="brandCar" value={brandCar} onChange={handleChange}>
                     <option selected>Selecciona una opción</option>
-                    <option value="Seguro Atlántida">Toyota</option>
-                    <option value="Ficohsa Seguros">Hyuindai</option>
-                    <option value="Mapfre Seguros">Honda</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Hyundai">Hyundai</option>
+                    <option value="Honda">Honda</option>
                 </select>
             </div>
             <div className="form-group">
                 <label>Modelo de Vehículo</label>
-                <select class="custom-select custom-select-sm">
+                <select class="custom-select custom-select-sm" id="modelCar" value={modelCar} onChange={handleChange}>
                     <option selected>Selecciona una opción</option>
-                    <option value="Seguro Atlántida">Modelo 1</option>
-                    <option value="Ficohsa Seguros">Modelo 2</option>
-                    <option value="Mapfre Seguros">Modelo 3</option>
+                    <option value="modelo1">Modelo 1</option>
+                    <option value="modelo2">Modelo 2</option>
+                    <option value="modelo3">Modelo 3</option>
                 </select>
             </div>
         </>
@@ -423,16 +525,83 @@ function ThirdPart(props) {
         <>
             <div className="form-group">
                 <label>Año del Vehículo</label>
-                <input 
-                // value={address} 
-                type="number" 
-                className="form-control" 
-                id="year" 
-                min="1970"
-                max="2020"
-                // onChange={handleChange} 
-                required />
+                <input
+                    // value={address} 
+                    type="number"
+                    className="form-control"
+                    id="year"
+                    min="1970"
+                    max="2020"
+                    // onChange={handleChange} 
+                    required />
             </div>
+
+            <div className="form-group">
+                <label>Valor de mercado actual del vehículo</label>
+                <input
+                    // value={address} 
+                    type="text"
+                    className="form-control"
+                    id="amount"
+                    // onChange={handleChange} 
+                    required />
+            </div>
+            <div className="form-group">
+                <label>¿Cómo escuchó de Segurú? </label>
+                <br />
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio"
+                        id="recomendacion"
+                        value="recomendacion"
+                        class="custom-control-input"
+                        name="aboutSeguru"
+                    // onChange={getRadioBtnValue} 
+                    />
+                    <label class="custom-control-label" for="recomendacion">Recomendación de amigos</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio"
+                        id="fb/ig"
+                        value="fb/ig"
+                        class="custom-control-input"
+                        name="aboutSeguru"
+                    // onChange={getRadioBtnValue} 
+                    />
+                    <label class="custom-control-label" for="fb/ig">Facebook/Instagram</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio"
+                        id="google"
+                        value="google"
+                        class="custom-control-input"
+                        name="aboutSeguru"
+                    // onChange={getRadioBtnValue} 
+                    />
+                    <label class="custom-control-label" for="google">Google</label>
+                </div>
+            </div>
+            <div className="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="termsCondition" required />
+                    <label class="custom-control-label" for="termsCondition">
+                        Acepto los términos y condiciones de uso y el aviso de privacidad y declaro que la información es verdadera
+                    </label>
+                </div>
+            </div>
+
+            <div className="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="termsCondition" />
+                    <label class="custom-control-label" for="termsCondition">
+                        Quiero que un asesor profesional de Segurú me contacte para brindarme más explicación
+                    </label>
+                </div>
+            </div>
+            <button
+                className="btn btn-primary float-right"
+                type="submit">
+                Guardar
+            </button>
         </>
     );
 }
