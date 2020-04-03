@@ -21,58 +21,6 @@ class Home extends Component {
         });
     }
 
-    renderInsuranceCards() {
-        const { insurances } = this.setState
-        let cards;
-        console.log('insurances', insurances);
-
-        if (insurances.lenght > 0) {
-            cards = insurances.map(insurance => {
-                return (
-                    <>
-                        <div class="col mb-4">
-                            <div class="card h-100" style={{
-                                borderRadius: "4%",
-                                border: "outset"
-                            }}>
-                                <div style={{ textAlign: "center", marginTop: "2%" }}>
-
-                                    <h5 class="card-title" style={{ fontFamily: "sans-serif" }}>{insurance.name}</h5>
-                                    <img src="images/car.png" class="card-img-top" alt="..."
-                                        style={{
-                                            width: "21%",
-                                            margin: "5%"
-                                        }} />
-                                </div>
-                                <div class="card-body" style={{ padding: "0% !important" }}>
-                                    <div style={{
-                                        backgroundColor: "rgb(255, 89, 63)",
-                                        textAlign: "center"
-                                    }}>
-                                        <button style={{
-                                            fontFamily: "sans-serif",
-                                            fontSize: "20px",
-                                            display: "contents",
-                                            color: "white",
-                                            cursor: "pointer"
-                                        }}>Solicita Información</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </>
-                )
-            })
-            this.setState({ insuranceCards: cards })
-            // return (
-            //     <>
-
-            //     </>
-            // )
-        }
-
-        return <><div><h5>No se encontraron productos</h5></div></>
-    }
     render() {
         const { insurances } = this.state;
         let cards;
@@ -83,13 +31,14 @@ class Home extends Component {
                         <div key={index} class="col mb-4">
                             <div class="card h-100" style={{
                                 borderRadius: "4%",
-                                border: "outset"
+                                border: "outset",
+                                borderColor: "#ff593d"
                             }}>
                                 <div style={{ textAlign: "center", marginTop: "2%" }}>
 
                                     <h5 class="card-title" style={{ fontFamily: "sans-serif" }}>{insurance.name}</h5>
                                     {/*images/car.png*/}
-                                    <img src={`/images/${insurance.name}`} class="card-img-top" alt="..."
+                                    <img src={`/images/${insurance.image}`} class="card-img-top" alt="..."
                                         style={{
                                             width: "21%",
                                             margin: "5%"
@@ -123,25 +72,44 @@ class Home extends Component {
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/images/name.png" class="d-block w-100" alt="..." />
-                        </div>
-                        <div class="carousel-item">
-                            <img src="/images/carousel.png" class="d-block w-100" alt="..." />
+                            <img src="/images/wall-seguro.v3.png" class="d-block w-100" height="580px" alt="..." />
                         </div>
                         {/* <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="..." />
+                            <img src="/images/carousel.png" class="d-block w-100" height="580px" alt="..." />
                         </div> */}
                     </div>
                 </div>
-                <hr></hr>
+                <hr style={{ border: "solid 1px #ff593e" }}></hr>
                 <div>
-                    <h6>¿Andas buscando seguros? </h6>
-                    <h6> Igual que tu nos preocupamos por el bienestar de tus seres queridos, busca en nuestro catologo que producto es el ideal para ti</h6>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <img src="/images/life-insurance.png" alt=""></img>
+                            </div>
+                            <div class="col-sm-6" style={{
+                                display: "block",
+                                margin: "auto",
+                                fontFamily: "sans-serif",
+                                textAlign: "center"
+                            }}>
+                                <h1><strong>¿Cómo funciona?</strong></h1>
+                                <br />
+                                <h3>
+                                    Elija según su conveniencia entre múltiples alternativas y ahorre tiempo
+                                    y dinero al suscribir la póliza totalmente en línea
+                                </h3>
+                                <h6>  (sin cargos ni pagos adicionales)</h6>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                <hr></hr>
-                <div class="row row-cols-1 row-cols-md-3" style={{ margin: "4%" }}>
-                    {cards}
-                </div >
+                <div style={{ background: "rgba(243, 243, 243, 0.46)" }}>
+                    <br></br>
+                    <div class="row row-cols-1 row-cols-md-3" style={{ margin: "0 4%" }}>
+                        {cards}
+                    </div >
+                </div>
 
             </div>
         )

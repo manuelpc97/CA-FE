@@ -65,7 +65,6 @@ class Forms extends Component {
         })
 
         if(currentStep === 2){
-            console.log('entra es dossss', currentStep);
             this.validateSecondValues();
         }
     }
