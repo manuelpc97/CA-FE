@@ -15,6 +15,7 @@ class ProductCard extends Component{
                         <h5 class="card-title">{this.props.insurance}</h5>
                         <p class="card-text">Prima Anual: HNL {this.props.product.yearPayment}</p>
                         <button type="button"
+                                style = {{backgroundColor: 'rgb(255,89,63)'}}
                                 class="btn btn-primary" 
                                 data-toggle="modal" 
                                 data-target={'#' + this.modalID}

@@ -20,27 +20,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         }
     />
 );
-    // const handleComponentView = ({ props, isAuthenticated }) => {
-    //     console.log(' handleComponentView ---> isAuthenticated ', isAuthenticated);
-    //     if (!isAuthenticated) {
-    //         return <p>Please log in</p>
-    //     }
-
-    //     return <Component {...props} {...rest} />
-    // }
-
-    // return (
-    //     <AuthContext.Consumer {...rest}>
-    //         {({ isAuthenticated }) => (
-    //             <Route
-    //                 {...rest}
-    //                 render={props =>
-    //                     handleComponentView({ props, isAuthenticated })
-    //                 }
-    //             />
-    //         )}
-    //     </AuthContext.Consumer>
-    // )
 
 
 export default PrivateRoute;

@@ -16,14 +16,13 @@ class Input extends Component{
     render(){
         console.log('Here on question: ', this.props.question);
         return (
-            <div class="md-form mb-5">
+            <div className="md-form mb-5">
                 <label>{this.props.question.question}</label>
                 <input type={this.props.question.type} 
                     id={"form" + this.props.question.id} 
-                    class="form-control validate"
+                    className="form-control validate"
                     value = {this.state.value}
                     onChange = {this.handleChange.bind(this)}/>
-                <label data-error="wrong" data-success="right" for="form34"></label>
             </div>
         );
     }

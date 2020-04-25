@@ -34,13 +34,35 @@ class CoverModal extends Component{
             </div>
         );
     }
+
     getModalFooter(){
         return (
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Sigo con Seguru</button>
-                <button type="button" class="btn btn-secondary" >Llamada de Agente</button>
+                <button type="button" 
+                style = {{backgroundColor: 'rgb(255,89,63)'}}
+                class="btn btn-primary close" 
+                data-dismiss="modal" 
+                onClick = {this.onContinue.bind(this)}
+                data-toggle="modal" 
+                data-target='#modalForm'>Sigo con Seguru</button>
+                <button type="button" 
+                style = {{backgroundColor: 'rgb(255,89,63)'}}
+                    class="btn btn-primary  close"
+                     type="button" 
+                     data-dismiss="modal" 
+                     onClick = {this.onFinish.bind(this)}
+                    data-toggle="modal" 
+                    data-target='#congratModal'>Llamada de Agente</button>
             </div>
         )
+    }
+
+    onContinue(){
+        this.props.showForm();
+    }
+
+    onFinish(){
+        this.props.showCongrat('FELICIDADES','En un momento te contactara un agente');
     }
 }
 

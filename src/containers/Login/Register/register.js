@@ -53,8 +53,8 @@ class Register extends Component {
         const body = {
             username,
             password,
-            firstname,
-            lastname,
+            firstName: firstname,
+            lastName: lastname,
             id,
             email,
             phone

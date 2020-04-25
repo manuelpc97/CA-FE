@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Input from './Input';
+import {Redirect} from 'react-router-dom';
+import $ from 'jquery';
 
 class Form extends Component{
     constructor(props){
@@ -7,13 +9,19 @@ class Form extends Component{
         this.questionsPerPage = 3;
         this.pages = this.props.questions.length / this.questionsPerPage;
         this.state = {
-            currentPage: 1
+            currentPage: 1,
+            submitted: false
         }
     }
 
     render(){
         return (
-            <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            this.state.submitted === true?
+            <Redirect to={{
+                pathname: '/comparison',
+                state: { questions: this.props.questions }
+            }}/>
+            :<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                 aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -28,11 +36,7 @@ class Form extends Component{
                                     this.renderQuestions(this.state.currentPage)}
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
-                                <button class="btn btn-unique btn-primary"
-                                    onClick = {this.onClick.bind(this)}>
-                                    {this.getButtonText()}
-                                    <i class="fas fa-paper-plane-o ml-1"></i>
-                                </button>
+                                {this.getButtonForForm(this.state.currentPage)}
                             </div>
                         </div>
                     </div>
@@ -40,14 +44,47 @@ class Form extends Component{
         );
     }
 
+    getButtonForForm(currentPage){
+        const isLastButton = currentPage === this.pages;
+        return isLastButton === true?
+        this.props.type === 'lf'? 
+        <button class="btn btn-unique btn-primary close"
+            data-dismiss="modal"
+            data-toggle="modal" 
+            data-target='#congratModal'
+            onClick = {this.onClick.bind(this)}>
+            {this.getButtonText()}
+            <i class="fas fa-paper-plane-o ml-1"></i>
+        </button>
+        :<button class="btn btn-unique btn-primary close"
+            data-dismiss="modal"
+            onClick = {this.onClick.bind(this)}>
+            {this.getButtonText()}
+            <i class="fas fa-paper-plane-o ml-1"></i>
+        </button>
+        :<button class="btn btn-unique btn-primary"
+            style = {{backgroundColor: 'rgb(255,89,63)'}}
+            onClick = {this.onClick.bind(this)}>
+            {this.getButtonText()}
+            <i class="fas fa-paper-plane-o ml-1"></i>
+        </button>
+    }
+
     onClick(){
         if(this.state.currentPage < this.pages){
             this.setState({currentPage: this.state.currentPage + 1});
         }else{
-            console.log('QUESTIONS: ', this.props.questions);
+            if(this.props.type === 'sf'){
+                this.handleSubmit();
+            }else{
+                this.props.showCongrat('FELICIDADES', 'Has obtenido tu seguro de vehiculo');
+            }
         }
     }
 
+    handleSubmit(){
+        this.setState({submitted: true})
+    }
     getButtonText(){
         return this.state.currentPage < this.pages ? 'SIGUIENTE' : 'LISTO';
     }

@@ -26,23 +26,10 @@ class App extends Component {
 
     }
     componentDidMount() {
-        // localStorage.setItem('isAuth', false);
-        // const isAlreadyAuth = localStorage.getItem('isAuth')
-        // console.log('isAlreadyAuth----> ', isAlreadyAuth);
-        // if (isAlreadyAuth === 'true') {
-        //     this.setState({
-        //         isAlreadyAuth: true
-        //     })
-        // } else {
-        //     this.setState({
-        //         isAlreadyAuth: false
-        //     })
-        // }
+ 
     }
 
     handleLoginSubmit = (usernameLogin, passwordLogin) => {
-        // const {isAlreadyAuth } = this.state;
-        // e.preventDefault();
 
         return serviceLogin({ username: usernameLogin, password: passwordLogin })
             .then(login => {
@@ -58,15 +45,21 @@ class App extends Component {
 
     }
 
+    logOut = () =>{
+        console.log('entra');
+        this.setState({ isAlreadyAuth: false })
+        localStorage.removeItem('isAuth');
+    }
+
     render() {
         let { isAlreadyAuth } = this.state;
         return (
-            <div style={{ height: "100%", paddingTop: "7%" }}>
+            <div style={{ height: "100%", paddingTop: "4%" }}>
                 <AuthContext.Provider
                     value={{ isAuthenticated: isAlreadyAuth }}
                 >
                     <BrowserRouter>
-                        <Layout isAlreadyAuth={isAlreadyAuth}>
+                        <Layout isAlreadyAuth={isAlreadyAuth} logOut={this.logOut}>
                             <Switch>
                                 <Route
                                     exact
