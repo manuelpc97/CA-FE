@@ -13,3 +13,10 @@ export const getAllInsurances = () => {
         dispatch({type: 'GET_ALL_INSURANCES', payload: allInsurances.data});
     }
 }
+
+export const getProductsByBussiness = (businessId) => {
+    return async dispatch => {
+        const products = await seguroApi.get(`/product/get/${businessId}`);
+        dispatch({type: 'GET_PRODUCTS_BY_BUSINESS', payload: products.data});
+    }
+}
