@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
-import businessReducers from './business';
+import businessReducer from './business';
+import insuranceReducer from './insurance';
 
 export default combineReducers({
-    businesses: businessReducers
+    businesses: businessReducer, 
+    insurances: insuranceReducer
 });
