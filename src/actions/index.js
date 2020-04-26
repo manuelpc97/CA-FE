@@ -20,3 +20,10 @@ export const getProductsByBussiness = (businessId) => {
         dispatch({type: 'GET_PRODUCTS_BY_BUSINESS', payload: products.data});
     }
 }
+
+export const getCoversByProduct = (coverId) => {
+    return async dispatch => {
+        const covers = await seguroApi.get(`/cover/get/${coverId}`);
+        dispatch({type: 'GET_COVERS_BY_PRODUCT', payload: covers.data});
+    }
+}
