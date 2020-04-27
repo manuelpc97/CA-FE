@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {getAllBusiness, getAllInsurances} from '../actions';
+import {getAllBusiness, getAllInsurances, logIn} from '../actions';
 
 class App extends Component { 
     componentDidMount(){
         this.props.getAllBusiness();
         this.props.getAllInsurances();
+        this.props.logIn('manu','manu123');
     }
 
     render() {
         console.log('BUSINESS: ', this.props.bussinesses);
         console.log('INSURANCES: ', this.props.insurances);
+        console.log('USER: ', this.props.currentUser);
         return <div>DESDE CERO</div>
     }
 }
@@ -18,8 +20,9 @@ class App extends Component {
 const mapStateToProp = (state) => {
     return{
         bussinesses : state.business.businesses, 
-        insurances: state.insurance.insurances
+        insurances: state.insurance.insurances, 
+        currentUser: state.user.currentUser
     }
 }
 
-export default connect(mapStateToProp, {getAllBusiness,getAllInsurances})(App);
+export default connect(mapStateToProp, {getAllBusiness,getAllInsurances, logIn})(App);

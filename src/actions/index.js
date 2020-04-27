@@ -30,7 +30,7 @@ export const getCoversByProduct = (coverId) => {
 
 export const logIn = (username, password) => {
     return async dispatch => {
-        var response = await seguroApi.post('/user/logIn', {username, password});
+        var response = await seguroApi.post('/user/logIn', {username, password})
         dispatch({type: 'LOG_IN', payload: response.data});
     }
 }
