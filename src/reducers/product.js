@@ -1,8 +1,13 @@
-export default (state = [], action) => {
-    switch(action.type){
-        case 'GET_PRODUCTS_BY_BUSINESS': 
-            return action.payload;
-        default:
-            return state;
+import {createReducer} from 'redux-create-reducer';
+
+let initialState = {
+    products:[]
+};
+
+export const product = createReducer(initialState, {
+    ['GET_PRODUCTS_BY_BUSINESS'] : (state = [], action) => {
+        return Object.assign({}, state, {
+            products: action.payload
+        });
     }
-}
+});

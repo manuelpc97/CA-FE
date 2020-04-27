@@ -5,18 +5,20 @@ import {getAllBusiness, getAllInsurances} from '../actions';
 class App extends Component { 
     componentDidMount(){
         this.props.getAllBusiness();
+        this.props.getAllInsurances();
     }
 
     render() {
         console.log('BUSINESS: ', this.props.bussinesses);
+        console.log('INSURANCES: ', this.props.insurances);
         return <div>DESDE CERO</div>
     }
 }
 
 const mapStateToProp = (state) => {
     return{
-        bussinesses : state.businesses, 
-        insurances : state.insurances
+        bussinesses : state.business.businesses, 
+        insurances: state.insurance.insurances
     }
 }
 

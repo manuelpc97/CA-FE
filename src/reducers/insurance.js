@@ -1,8 +1,13 @@
-export default (state = [], action) => {
-    switch(action.type){
-        case 'GET_ALL_INSURANCES': 
-            return action.payload;
-        default:
-            return state;
-    }
+import {createReducer} from 'redux-create-reducer';
+
+let initialState = {
+    insurances: []
 }
+
+export const insurance = createReducer(initialState, {
+    ['GET_ALL_INSURANCES'] : (state = [], action) => {
+        return Object.assign({}, state, {
+            insurances: action.payload
+        });
+    }
+});

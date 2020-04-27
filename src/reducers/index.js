@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
-import businessReducer from './business';
-import insuranceReducer from './insurance';
-import productReducer from './product';
-import coverReducer from './cover';
+import * as businessReducer from './business';
+import * as coverReducer from './cover';
+import * as productReducer from './product';
+import * as insuranceReducer from './insurance';
 
-export default combineReducers({
-    businesses: businessReducer, 
-    insurances: insuranceReducer, 
-    products: productReducer, 
-    covers: coverReducer
-});
+export default combineReducers(Object.assign(
+    businessReducer, 
+    coverReducer, 
+    productReducer, 
+    insuranceReducer
+));
