@@ -35,6 +35,6 @@ export const logIn = (username, password) => {
     }
 }
 
-export const changePath = (path) => {
-    return {type: 'CHANGE_PATH', payload: path}
+export const changePath = (path, params = {}) => {
+    return {type: 'CHANGE_PATH', payload: {path, params}}
 }

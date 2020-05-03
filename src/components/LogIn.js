@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {changePath} from '../actions';
 
 class LogIn extends Component{
-    handleClick = () =>{
-        this.props.changePath('home');
+    componentDidMount(){
+        console.log('MY PROPS: ', this.props.params);
     }
 
     render(){
@@ -13,6 +13,10 @@ class LogIn extends Component{
             <h1>LOGIN</h1>
             <button onClick = {this.handleClick}>LLEVAME A HOME</button>
         </div>
+    }
+
+    handleClick = () =>{
+        this.props.changePath('home', {param1: 'SOY UN PARAMETRO'});
     }
 }
 

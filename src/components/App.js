@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {changePath} from '../actions';
 
 import LogIn from './LogIn';
+import Home from './Home';
 
 class App extends Component { 
     componentDidMount(){
@@ -12,16 +13,17 @@ class App extends Component {
     render() {
         console.log('CURRENT PATH: ', this.props.path);
         return this.props.path === '' ? 
-                <LogIn/> : 
+                <LogIn params = {this.props.params}/> : 
             this.props.path === 'home' ? 
-                <div>ESTOY EN EL HOME</div> :
+                <Home params = {this.props.params}/> :
                 <div>PAGE NOT FOUND</div>
     }
 }
 
 const mapStateToProp = (state) => {
     return {
-        path: state.navigator.path
+        path: state.navigator.path,
+        params: state.navigator.params
     }
 }
 
