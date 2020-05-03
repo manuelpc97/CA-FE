@@ -34,3 +34,7 @@ export const logIn = (username, password) => {
         dispatch({type: 'LOG_IN', payload: response.data});
     }
 }
+
+export const changePath = (path) => {
+    return {type: 'CHANGE_PATH', payload: path}
+}
