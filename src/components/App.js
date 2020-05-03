@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 
-import {changePath} from '../actions';
-
 import LogIn from './LogIn';
 import Home from './Home';
 
@@ -28,4 +26,4 @@ const mapStateToProp = (state) => {
     }
 }
 
-export default connect(mapStateToProp, {changePath})(App);
+export default connect(mapStateToProp)(App);

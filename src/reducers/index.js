@@ -5,6 +5,7 @@ import * as productReducer from './product';
 import * as insuranceReducer from './insurance';
 import * as userReducer from './user';
 import * as navigatorReducer from './navigator';
+import * as errorReducer from './error';
 
 export default combineReducers(Object.assign(
     businessReducer, 
@@ -12,5 +13,6 @@ export default combineReducers(Object.assign(
     productReducer, 
     insuranceReducer, 
     userReducer, 
-    navigatorReducer
+    navigatorReducer, 
+    errorReducer
 ));
