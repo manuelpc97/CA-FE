@@ -38,3 +38,7 @@ export const logIn = (username, password) => {
 export const changePath = (path, params = {}) => {
     return {type: 'CHANGE_PATH', payload: {path, params}}
 }
+
+export const createUser = async (user) => {
+    return await seguroApi.post('/user/create', user);
+}
