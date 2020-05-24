@@ -13,8 +13,8 @@ class Header extends Component {
                         <div className="header-body text-center mb-7">
                             <div className="row justify-content-center">
                                 <div className="col-lg-5 col-md-6">
-                                    <h1 className="text-white" style={{ fontSize: '4rem' }}>¡Bienvenido!</h1>
-                                    <p className="text-lead text-light" style={{ fontSize: '22px' }}>
+                                    <h1 className="text-white" style={{ }}>¡Bienvenido!</h1>
+                                    <p className="text-lead text-light" style={{ fontSize: '20px' }}>
                                         Las <b style={{ fontWeight: "bold" }}>más amplias</b> coberturas y beneficios de seguros,
                                         <b style={{ fontWeight: "bold" }}> mejor</b> precio del mercado
                                     </p>

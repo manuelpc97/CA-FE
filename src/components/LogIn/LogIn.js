@@ -24,11 +24,11 @@ class LogIn extends Component {
                     <Header />
                     <div className='container pb-5' style={{ marginTop: '-10rem' }}>
                         <div className='row justify-content-center'>
-                            <div className="col-md-9 col-lg-7">
+                            <div className="col-md-7 col-lg-5">
                                 <Form />
                                 <div className="col-xs-6 text-right">
                                     <a href="#">
-                                        Crear una cuenta
+                                        <small>Crear una cuenta</small>
                                     </a>
                                 </div>
                             </div>

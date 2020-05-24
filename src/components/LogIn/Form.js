@@ -19,7 +19,7 @@ class Form extends Component {
                             <img
                                 alt="..."
                                 src="/images/login/loginIcon.jpg"
-                                width='80%'
+                                width='70%'
                             />
                         </span>
                     </div>
@@ -35,7 +35,7 @@ class Form extends Component {
                                 formControlProps={{
                                     fullWidth: true
                                 }}
-                                inputIcon={<i style={{ color: '#929292', fontSize: '20px', marginRight: '10px' }} className="fas fa-envelope"></i>}
+                                inputIcon={<i style={{ color: '#929292', fontSize: '15px', marginRight: '10px' }} className="fas fa-envelope"></i>}
                             />
                         </div>
                         <div className="form-group">
@@ -49,7 +49,7 @@ class Form extends Component {
                                 formControlProps={{
                                     fullWidth: true
                                 }}
-                                inputIcon={<i style={{ color: '#929292', fontSize: '20px', marginRight: '10px' }} className="fas fa-unlock"></i>}
+                                inputIcon={<i style={{ color: '#929292', fontSize: '15px', marginRight: '10px' }} className="fas fa-unlock"></i>}
                             />
                         </div>
                         <div className="custom-control custom-control-alternative custom-checkbox">
@@ -60,7 +60,7 @@ class Form extends Component {
                             />
                         </div>
                         <div className="text-center">
-                            <Button className="my-4" color="primary" type="button">
+                            <Button className="my-2" color="primary" type="button">
                                 Iniciar Sesión
                             </Button>
                         </div>

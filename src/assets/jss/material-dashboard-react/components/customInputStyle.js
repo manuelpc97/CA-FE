@@ -37,7 +37,7 @@ const customInputStyle = {
     ...defaultFont,
     color: grayColor[3] + " !important",
     fontWeight: "400",
-    fontSize: "20px",
+    fontSize: "18px",
     lineHeight: "1.42857",
     letterSpacing: "unset"
   },

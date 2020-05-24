@@ -66,7 +66,7 @@ body {
 
 .separator-bottom {
     top: auto;
-    bottom: 53.9%;
+    bottom: 55.3%;
 }
 
 .separator-bottom svg {
@@ -105,7 +105,7 @@ body {
 
 .bg-gradient-info {
     background: linear-gradient(87deg, #ffcc01 0, #fa4a3a 100%) !important;
-    padding: 15rem 0rem !important;
+    padding: 10rem 0rem !important;
 }
 
 .justify-content-center {
