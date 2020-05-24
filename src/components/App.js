@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 
-import LogIn from './LogIn';
+import LogIn from './LogIn/LogIn';
 import Home from './Home';
 
 class App extends Component { 
