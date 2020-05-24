@@ -2,6 +2,7 @@ import '../../styles/Sidebar.css';
 
 import React,{Component} from 'react';
 import {List, ListSubheader, Divider} from '@material-ui/core';
+import {Person, Dashboard} from '@material-ui/icons';
 
 import Tab from './Tab';
 
@@ -11,11 +12,11 @@ class Sidebar extends Component{
         this.tabs = [
             {
                 text: 'PRODUCTOS',
-                icon: ''    
+                icon: <Dashboard/> 
             },
             {
                 text: 'PERFIL',
-                icon: '' 
+                icon: <Person/> 
             }
         ]
     }

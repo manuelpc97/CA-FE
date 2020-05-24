@@ -18,7 +18,8 @@ class Tab extends Component{
                 onClick = {this.handleClick}
                 onMouseOver = {this.handleHover}
                 onMouseOut = {this.handleMouseOut}
-                style = {{backgroundColor: this.props.focused === true? '#ff9800' :'#1e1e1e'}}>
+                style = {{backgroundColor: this.props.focused === true? '#ff9800' :'#111111'}}>
+                    {this.props.tab.icon}
                     <ListItemText primary = {this.props.tab.text}/>
                 </ListItem>;
     }
@@ -28,11 +29,11 @@ class Tab extends Component{
     }
 
     handleHover = () => {
-        this.tabRef.current.style.backgroundColor = this.props.focused === true? '#ff9800': '#111111';
+        this.tabRef.current.style.backgroundColor = this.props.focused === true? '#ff9800': '#000000';
     }
 
     handleMouseOut = () => {
-        this.tabRef.current.style.backgroundColor = this.props.focused === true? '#ff9800': '#1e1e1e';
+        this.tabRef.current.style.backgroundColor = this.props.focused === true? '#ff9800': '#111111';
     }
 }
 
