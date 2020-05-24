@@ -15,8 +15,8 @@ class Home extends Component{
 
     render(){
         return <Grid className = {'home-container'} container spacing ={0}>
-            <Grid className = {'sidebar-container'} item xs={2}><Sidebar/></Grid>
-            <Grid item xs={10}></Grid>
+            <Grid className = {'sidebar-container'} item xs={3}><Sidebar/></Grid>
+            <Grid item xs={9}></Grid>
         </Grid>
     }
 }
