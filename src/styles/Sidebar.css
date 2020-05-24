@@ -1,0 +1,10 @@
+.sidebar-subheader{
+    color: white;
+    margin-top: 40px; 
+}
+
+.sidebar-divider{
+    margin-top: 5px !important;
+    background-color: white !important;
+    height: 3px !important;
+}

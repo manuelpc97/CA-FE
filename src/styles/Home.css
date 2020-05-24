@@ -1,0 +1,12 @@
+.home-container{
+    height: 100vh;
+}
+
+.sidebar-container{
+    background-color: black;
+    opacity: 0.8;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
