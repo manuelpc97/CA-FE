@@ -1,4 +1,4 @@
-import '../styles/Sidebar.css';
+import '../../styles/Sidebar.css';
 
 import React,{Component} from 'react';
 import {List, ListSubheader, Divider} from '@material-ui/core';
@@ -21,7 +21,7 @@ class Sidebar extends Component{
     }
     render(){
         return <List subheader = {this.renderSubheader()}>
-            {this.tabs.map(tab => <Tab tab = {tab}/>)}
+            {this.tabs.map((tab, index) => <Tab tab = {tab} key = {index} focused = {this.props.currentIndex === index} index = {index}/>)}
         </List>;
     }
 
@@ -30,12 +30,6 @@ class Sidebar extends Component{
             <div className = 'sidebar-subheader'>SEGURU</div>
             <Divider className = 'sidebar-divider' variant = 'middle'></Divider>
         </ListSubheader>
-    }
-
-    renderTabs = () => {
-        this.tabs.forEach(() => {
-
-        })
     }
 }
 
