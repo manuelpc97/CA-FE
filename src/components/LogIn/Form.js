@@ -5,10 +5,19 @@ import CardHeader from "../Common/Card/CardHeader";
 import CardBody from "../Common/Card/CardBody";
 import Button from "../Common/CustomButtons/Button.js";
 import CustomInput from "../Common/CustomInput/CustomInput.js";
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import {logIn, changePath} from '../../actions';
+
+
 
 class Form extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
     render() {
         return (
             <Card className="bg-secondary shadow border-0">
@@ -30,8 +39,12 @@ class Form extends Component {
                     <form>
                         <div className="form-group">
                             <CustomInput
-                                labelText="Correo Electrónico"
+                                labelText="Usuario"
                                 id="email-address"
+                                inputProps = {{
+                                    value: this.state.username, 
+                                    onChange: this.onUsernameChange
+                                }}
                                 formControlProps={{
                                     fullWidth: true
                                 }}
@@ -42,7 +55,9 @@ class Form extends Component {
                             <CustomInput
                                 labelText="Contraseña"
                                 inputProps={{
-                                    type: "password"
+                                    type: "password", 
+                                    value : this.state.password, 
+                                    onChange : this.onPasswordChange
                                 }}
                                 autoComplete="current-password"
                                 id="password"
@@ -60,7 +75,7 @@ class Form extends Component {
                             />
                         </div>
                         <div className="text-center">
-                            <Button className="my-2" color="primary" type="button">
+                            <Button className="my-2" color="primary" type="button" onClick = {this.onSubmit}>
                                 Iniciar Sesión
                             </Button>
                         </div>
@@ -69,15 +84,29 @@ class Form extends Component {
             </Card>
         );
     }
+
+    onUsernameChange = event => {
+        this.setState({username: event.target.value});
+    }
+
+    onPasswordChange = event => {
+        this.setState({password: event.target.value});
+    }
+
+    onSubmit = async () => {
+        await this.props.logIn(this.state.username, this.state.password);
+        if(this.props.isAuth === true){
+            this.props.changePath('home');
+        }else{
+            this.setState({username: '', password: ''});
+        }
+    }
 }
 
-const mapStateToProp = state => {
+const mapStateToProps = state => {
     return {
-        // currentUser: state.user.currentUser,
-        // isAuth: state.user.isAuth,
-        // error: state.error.error,
-        // errorMessage: state.error.message
-    };
+        isAuth: state.user.isAuth
+    }
 }
 
-export default connect(mapStateToProp, {})(Form)
+export default connect(mapStateToProps, {logIn, changePath})(Form);
