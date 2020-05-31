@@ -9,10 +9,9 @@ import styles from "./../../assets/jss/material-dashboard-react/views/dashboardS
 const useStyles = makeStyles(styles);
 
 const ProductCard = (props) => {
-    console.log('INFO: ', props.product);
     const classes = useStyles();
     return <Grid item sm={6}>
-                <CardActionArea>
+                <CardActionArea onClick = {() => props.onSelect(props.product)}>
                     <Card>
                         <CardHeader color="warning">
                              <h4 className={classes.cardTitleWhite}>{props.product.business.name}</h4>

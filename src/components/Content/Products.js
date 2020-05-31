@@ -2,12 +2,17 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Grid} from '@material-ui/core';
 import ProductCard from './ProductCard';
+import ProductChart from './ProductChart';
 import {getAllProducts, getProductsByInsurance, getAllBusiness, getAllCovers} from './../../actions';
 
 class Product extends Component{
     constructor(props){
         super(props);
         this.manager = [];
+        this.state = {
+            showTable: false,
+            currentProduct: {}
+        }
     }
 
     async componentDidMount(){
@@ -23,7 +28,7 @@ class Product extends Component{
     render(){
         this.buildProductManager();
         return <Grid container spacing = {1}>
-            {this.renderProducts()}
+            {this.state.showTable === false ? this.renderProducts(): this.renderTable()}
         </Grid>
     }
 
@@ -42,8 +47,16 @@ class Product extends Component{
 
     renderProducts = () => {
         return this.manager.map((product, index) => {
-            return <ProductCard product = {product} key = {index}/>
+            return <ProductCard product = {product} key = {index} onSelect = {this.onSelectCard}/>
         })
+    }
+
+    renderTable = () => {
+        return <ProductChart product = {this.state.currentProduct}/>
+    }
+
+    onSelectCard = (currentProduct) => {
+        this.setState({currentProduct, showTable: true});
     }
 }
 

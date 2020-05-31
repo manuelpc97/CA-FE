@@ -11,28 +11,39 @@ const useStyles = makeStyles(styles);
 
 const ProductChart = (props) => {
     const classes = useStyles();
-    return <Grid item sm={6}>
+    return <Grid item sm={12}>
             <Card>
                 <CardHeader color="warning">
-                    <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
+                    <h4 className={classes.cardTitleWhite}>{props.product.business.name}</h4>
                     <p className={classes.cardCategoryWhite}>
-                        New employees on 15th September, 2016
+                        Pago anual de {props.product.yearPayment} L.
                     </p>
                 </CardHeader>
                 <CardBody>
                     <Table
                         tableHeaderColor="warning"
-                        tableHead={["ID", "Name", "Salary", "Country"]}
-                        tableData={[
-                        ["1", "Dakota Rice", "$36,738", "Niger"],
-                        ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                        ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                        ["4", "Philip Chaney", "$38,735", "Korea, South"]
-                        ]}
+                        tableHead={["#", "Cobertura", "Informacion", "Deducible", "Coaseguro"]}
+                        tableData={getTableData(props.product.covers)}
                     />
                 </CardBody>
             </Card>
         </Grid>
+}
+
+const getTableData = (covers) => {
+    return covers.map((cover,index) => {
+        return getRowData(cover, index);
+    })
+}
+
+const getRowData = (cover, index) => {
+    let row = [];
+    row.push(index+1);
+    row.push(cover.title);
+    row.push(cover.content);
+    row.push(cover.type.toString().toLowerCase() === 'deductible' ? cover.extraInfo : '-');
+    row.push(cover.type.toString().toLowerCase() === 'coinsurance' ? cover.extraInfo: '-');
+    return row;
 }
 
 export default ProductChart;
