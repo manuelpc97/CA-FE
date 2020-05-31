@@ -99,8 +99,9 @@ class SingUp extends Component {
             cellphone,
             username,
             password,
-        } = this.state
-        const response = await this.props.singUp({
+        } = this.state 
+        const { error } = this.props;
+        await this.props.singUp({
             firstName,
             lastName,
             id: documentId,
@@ -109,7 +110,19 @@ class SingUp extends Component {
             username,
             password,
         });
-        console.log('response', response);
+
+        if(!error.error){
+            console.log('user was creating');
+        }else{
+            console.log('error --->', error.message);
+        }
+       /**
+        *  if (this.props.isAuth === true) {
+            this.props.changePath('home');
+        } else {
+            this.setState({ username: '', password: '' });
+        }
+        */
     }
     returnToLogin = () => {
         this.props.changePath('');
@@ -309,8 +322,9 @@ class SingUp extends Component {
 }
 
 const mapStateToProps = state => {
+    const { error } = state;
     return {
-        // isAuth: state.user.isAuth
+        error
     }
 }
 
