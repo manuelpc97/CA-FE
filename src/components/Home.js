@@ -11,14 +11,15 @@ class Home extends Component{
     render(){
         return <Grid className = {'home-container'} container spacing ={1}>
             <Grid className = {'sidebar-container'} item xs={2}><Sidebar currentIndex = {this.props.currentIndex}/></Grid>
-            <Grid item xs={9}><Content index = {this.props.currentIndex}/></Grid>
+            <Grid item xs={9}><Content index = {this.props.currentIndex} params = {this.props.tabParams}/></Grid>
         </Grid>
     }
 }
 
 const mapStateToProp = state => {
     return {
-        currentIndex : state.sidebar.currentIndex
+        currentIndex : state.sidebar.currentIndex,
+        tabParams: state.sidebar.params
     }
 }
 

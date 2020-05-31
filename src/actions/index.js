@@ -62,9 +62,9 @@ export const promptError = (message) => {
     }
 }
 
-export const selectTab = (index) => {
+export const selectTab = (index, params = {}) => {
     return {
         type: 'SELECT_TAB', 
-        payload: index
+        payload: {index, params}
     }
 }
