@@ -27,7 +27,6 @@ const getIconFromType = (type) => {
 }
 
 const InsuranceCard = (props) => {
-    console.log('MANUELITO I HAVE THIS INFO: ', props);
     const classes = useStyles();
     return <Grid item xs = {4}>
             <CardActionArea onClick = {() => props.selectTab(2, {insurance: props.insurance})}>
