@@ -16,7 +16,7 @@ class Insurances extends Component{
                 {this.getInsuranceCards()}
             </Grid>
     }
-
+    
     getInsuranceCards = () => {
         return this.props.insurances.map((insurance, index) => {
             return <InsuranceCard insurance = {insurance} key = {index}/>
