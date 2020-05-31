@@ -15,10 +15,26 @@ export const getAllInsurances = () => {
         dispatch({type: 'GET_ALL_INSURANCES', payload: response.data});
     }
 }
+export const getAllProducts = () => {
+    return async (dispatch, getState) => {
+        const response = await seguroApi.get(`/product/get`).catch((error) => dispatch(promptError(error)));
+        console.log('RESPONSE: ', response);
+        if(getState().error.error === true) return;
+        dispatch({type: 'GET_ALL_PRODUCTS', payload: response.data});
+    }
+}
+
+export const getProductsByInsurance = (insuranceId) => {
+    return async (dispatch, getState) => {
+        const response = await seguroApi.get(`/product/getByInsurance/${insuranceId}`).catch((error) => dispatch(promptError(error)));
+        if(getState().error.error === true) return;
+        dispatch({type: 'GET_PRODUCTS_BY_INSURANCE', payload: response.data});
+    }
+}
 
 export const getProductsByBussiness = (businessId) => {
     return async (dispatch, getState) => {
-        const response = await seguroApi.get(`/product/get/${businessId}`).catch((error) => dispatch(promptError(error)));
+        const response = await seguroApi.get(`/product/getByBusiness/${businessId}`).catch((error) => dispatch(promptError(error)));
         if(getState().error.error === true) return;
         dispatch({type: 'GET_PRODUCTS_BY_BUSINESS', payload: response.data});
     }
@@ -62,9 +78,9 @@ export const promptError = (message) => {
     }
 }
 
-export const selectTab = (index) => {
+export const selectTab = (index, params = {}) => {
     return {
         type: 'SELECT_TAB', 
-        payload: index
+        payload: {index, params}
     }
 }
