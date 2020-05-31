@@ -6,8 +6,6 @@ import {
   defaultFont
 } from  "../../material-dashboard-react"
 
-// "assets/jss/material-dashboard-react.js";
-
 const customInputStyle = {
   disabled: {
     "&:before": {
@@ -37,7 +35,7 @@ const customInputStyle = {
     ...defaultFont,
     color: grayColor[3] + " !important",
     fontWeight: "400",
-    fontSize: "18px",
+    fontSize: "15px",
     lineHeight: "1.42857",
     letterSpacing: "unset"
   },

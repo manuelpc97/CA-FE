@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import LogIn from './LogIn/LogIn';
 import Home from './Home';
+import SingUp from './SingUp/SingUp';
 
 class App extends Component { 
     componentDidMount(){
@@ -15,6 +16,8 @@ class App extends Component {
                 <LogIn params = {this.props.params}/> : 
             this.props.path === 'home' ? 
                 <Home params = {this.props.params}/> :
+            this.props.path === 'singup' ?
+                <SingUp/> :
                 <div>PAGE NOT FOUND</div>
     }
 }

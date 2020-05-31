@@ -16,7 +16,7 @@ class Header extends Component {
                                     <h1 className="text-white" style={{ }}>¡Bienvenido!</h1>
                                     <p className="text-lead text-light" style={{ fontSize: '20px' }}>
                                         Las <b style={{ fontWeight: "bold" }}>más amplias</b> coberturas y beneficios de seguros,
-                                        <b style={{ fontWeight: "bold" }}> mejor</b> precio del mercado
+                                        al <b style={{ fontWeight: "bold" }}> mejor</b> precio del mercado
                                     </p>
                                 </div>
                             </div>

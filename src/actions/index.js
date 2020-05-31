@@ -40,6 +40,12 @@ export const logIn = (username, password) => {
     }
 }
 
+export const singUp = (newAccount) => {
+    return async () => {
+        console.log('account ', newAccount);
+    }
+}
+
 export const changePath = (path, params = {}) => {
     return {type: 'CHANGE_PATH', payload: {path, params}}
 }
