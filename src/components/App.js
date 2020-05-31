@@ -11,11 +11,11 @@ class App extends Component {
 
     render() {
         console.log('CURRENT PATH: ', this.props.path);
-        return this.props.path === '' ? 
-                <LogIn params = {this.props.params}/> : 
-            this.props.path === 'home' ? 
+        return this.props.path === 'home' ? 
+                <LogIn params = {this.props.params}/>: 
+            this.props.path === '' ? 
                 <Home params = {this.props.params}/> :
-                <div>PAGE NOT FOUND</div>
+            <div>PAGE NOT FOUND</div>
     }
 }
 

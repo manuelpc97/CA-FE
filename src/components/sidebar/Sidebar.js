@@ -11,11 +11,11 @@ class Sidebar extends Component{
         super(props);
         this.tabs = [
             {
-                text: 'PRODUCTOS',
+                text: 'Productos',
                 icon: <Dashboard/> 
             },
             {
-                text: 'PERFIL',
+                text: 'Perfil',
                 icon: <Person/> 
             }
         ]
