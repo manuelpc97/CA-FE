@@ -18,7 +18,6 @@ export const getAllInsurances = () => {
 export const getAllProducts = () => {
     return async (dispatch, getState) => {
         const response = await seguroApi.get(`/product/get`).catch((error) => dispatch(promptError(error)));
-        console.log('RESPONSE: ', response);
         if(getState().error.error === true) return;
         dispatch({type: 'GET_ALL_PRODUCTS', payload: response.data});
     }
@@ -45,6 +44,14 @@ export const getCoversByProduct = (coverId) => {
         const response = await seguroApi.get(`/cover/get/${coverId}`).catch((error) => dispatch(promptError(error)));
         if(getState().error.error === true) return;
         dispatch({type: 'GET_COVERS_BY_PRODUCT', payload: response.data});
+    }
+}
+
+export const getAllCovers = () => {
+    return async (dispatch, getState) => {
+        const response = await seguroApi.get(`/cover/getAll`).catch((error) => dispatch(promptError(error)));
+        if(getState().error.error === true) return;
+        dispatch({type: 'GET_ALL_COVERS', payload: response.data});
     }
 }
 
