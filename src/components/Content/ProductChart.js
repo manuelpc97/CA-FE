@@ -25,7 +25,7 @@ const ProductChart = (props) => {
             action: () => {}
         },
         {
-            text: 'Adquirir con SEGURÚ<',
+            text: 'Adquirir con SEGURÚ',
             icon: <NoteAdd style={{ fontSize: 30 }} />,
             action: () => {}
         },

@@ -50,8 +50,8 @@ class Sidebar extends Component {
     }
 
     renderSubheader = () => {
-        return <ListSubheader>
-            <div className='sidebar-subheader'>SEGURU</div>
+        return <ListSubheader disableSticky={true}>
+            <div className='sidebar-subheader'>SEGURÚ</div>
             <Divider className='sidebar-divider' variant='middle'></Divider>
         </ListSubheader>
     }
