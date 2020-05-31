@@ -23,7 +23,7 @@ const ProductChart = (props) => {
             icon: <ContactPhone style={{ fontSize: 30 }} />
         },
         {
-            text: 'Adquirir con SEGURÚ<',
+            text: 'Adquirir con SEGURÚ',
             icon: <NoteAdd style={{ fontSize: 30 }} />
         },
 
