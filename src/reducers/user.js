@@ -11,5 +11,11 @@ export const user = createReducer(initialState, {
             currentUser: action.payload, 
             isAuth: true
         });
+    },
+    ['LOG_OUT'] : (state = {}, action) => {
+        return Object.assign({}, state,{
+            currentUser: action.payload, 
+            isAuth: false
+        });
     }
 });

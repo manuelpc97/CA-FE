@@ -112,17 +112,10 @@ class SingUp extends Component {
         });
 
         if(!error.error){
-            console.log('user was creating');
+            this.props.changePath('');
         }else{
             console.log('error --->', error.message);
         }
-       /**
-        *  if (this.props.isAuth === true) {
-            this.props.changePath('home');
-        } else {
-            this.setState({ username: '', password: '' });
-        }
-        */
     }
     returnToLogin = () => {
         this.props.changePath('');

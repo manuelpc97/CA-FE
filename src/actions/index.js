@@ -63,10 +63,20 @@ export const logIn = (username, password) => {
     }
 }
 
+export const logOut = () => {
+    return {
+        type: 'LOG_OUT', 
+        payload: {}
+    }
+}
+
 export const singUp = (newUser) => {
     return async (dispatch,getState) => {
-        var response = await seguroApi.post('/user/create', newUser).catch((error) => dispatch(promptError(error)));
-        if(getState().error.error === true) return;
+        var response = await seguroApi.post('/user/create', newUser);
+        if(response.status !== 200) {
+            dispatch(promptError('ERROR CREANDO USUARIO'));
+            return;
+        }
         dispatch({type: 'LOG_IN', payload: response.data});
     }
 }
