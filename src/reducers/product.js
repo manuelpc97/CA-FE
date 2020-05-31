@@ -9,5 +9,15 @@ export const product = createReducer(initialState, {
         return Object.assign({}, state, {
             products: action.payload
         });
+    },
+    ['GET_PRODUCTS_BY_INSURANCE'] : (state = [], action) => {
+        return Object.assign({}, state, {
+            products: action.payload
+        });
+    },
+    ['GET_ALL_PRODUCTS'] : (state = [], action) => {
+        return Object.assign({}, state, {
+            products: action.payload
+        });
     }
 });

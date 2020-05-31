@@ -1,11 +1,14 @@
 import '../../styles/InsuranceCard.css';
 import React,{Component} from 'react';
+import {connect} from 'react-redux';
 import {Grid, CardActionArea} from '@material-ui/core';
 import {DriveEta, LocalHospital} from '@material-ui/icons';
 
 import Card from './../Common/Card/Card';
 import CardIcon from './../Common/Card/CardIcon';
 import CardHeader from './../Common/Card/CardHeader';
+
+import {selectTab} from './../../actions';
 
 class InsuranceCard extends Component{
     constructor(props){
@@ -36,20 +39,10 @@ class InsuranceCard extends Component{
         }
     }
 
-    getDescriptionFromType = () => {
-        switch(this.props.insurance.type){
-            case 'vehicle':
-                return 'Aegura tu auto';
-            case 'medical':
-            default:
-                return 'Cuida por tu salud';
-        }
-    }
-
     onCardClicked = () => {
-
+        this.props.selectTab(2,{insurance: this.props.insurance});
     }
 
 }
 
-export default InsuranceCard;
+export default connect(null, {selectTab})(InsuranceCard);
