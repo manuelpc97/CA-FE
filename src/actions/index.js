@@ -72,8 +72,9 @@ export const logOut = () => {
 
 export const singUp = (newUser) => {
     return async (dispatch,getState) => {
-        var response = await seguroApi.post('/user/create', newUser);
-        if(response.status !== 200) {
+        var response = await seguroApi.post('/user/create', newUser).catch(error => dispatch(promptError('Error creando usuario')));
+        if(getState().error.error === true) return;
+        if(response.status !== 200){
             dispatch(promptError('Error creando usuario'));
             return;
         }
