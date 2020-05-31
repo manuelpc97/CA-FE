@@ -116,7 +116,6 @@ class Form extends Component {
         const { value } = event.target;
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
         const isValid = passwordRegex.test(value)
-        console.log('isValid ---> ', isValid);
         this.setState({ 
             password: event.target.value,
             isValidPassword: !isValid,

@@ -40,9 +40,11 @@ export const logIn = (username, password) => {
     }
 }
 
-export const singUp = (newAccount) => {
-    return async () => {
-        console.log('account ', newAccount);
+export const singUp = (newUser) => {
+    return async (dispatch,getState) => {
+        var response = await seguroApi.post('/user/create', newUser).catch((error) => dispatch(promptError(error)));
+        if(getState().error.error === true) return;
+        dispatch({type: 'LOG_IN', payload: response.data});
     }
 }
 
