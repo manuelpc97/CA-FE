@@ -27,14 +27,3 @@ export default function AuthNavbar() {
         </AppBar>
     )
 }
-
-// const mapStateToProp = state => {
-//     return {
-//         // currentUser: state.user.currentUser,
-//         // isAuth: state.user.isAuth,
-//         // error: state.error.error,
-//         // errorMessage: state.error.message
-//     };
-// }
-
-// export default connect(mapStateToProp, {})(AuthNavbar)

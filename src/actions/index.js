@@ -57,8 +57,26 @@ export const getAllCovers = () => {
 
 export const logIn = (username, password) => {
     return async (dispatch,getState) => {
-        var response = await seguroApi.post('/user/logIn', {username, password}).catch((error) => dispatch(promptError(error)));
+        var response = await seguroApi.post('/user/logIn', {username, password}).catch(error => dispatch(promptError('Usuario incorrecto')));
         if(getState().error.error === true) return;
+        dispatch({type: 'LOG_IN', payload: response.data});
+    }
+}
+
+export const logOut = () => {
+    return {
+        type: 'LOG_OUT', 
+        payload: {}
+    }
+}
+
+export const singUp = (newUser) => {
+    return async (dispatch,getState) => {
+        var response = await seguroApi.post('/user/create', newUser);
+        if(response.status !== 200) {
+            dispatch(promptError('Error creando usuario'));
+            return;
+        }
         dispatch({type: 'LOG_IN', payload: response.data});
     }
 }

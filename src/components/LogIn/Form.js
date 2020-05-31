@@ -5,20 +5,23 @@ import CardHeader from "../Common/Card/CardHeader";
 import CardBody from "../Common/Card/CardBody";
 import Button from "../Common/CustomButtons/Button.js";
 import CustomInput from "../Common/CustomInput/CustomInput.js";
-import {logIn, changePath} from '../../actions';
+import { logIn, changePath } from '../../actions';
 
 
 
 class Form extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            isValidUsername: false,
+            isValidPassword: false,
         }
     }
 
     render() {
+        const { isValidUsername, isValidPassword } = this.state;
         return (
             <Card className="bg-secondary shadow border-0">
                 <CardHeader className="bg-transparent">
@@ -41,8 +44,9 @@ class Form extends Component {
                             <CustomInput
                                 labelText="Usuario"
                                 id="email-address"
-                                inputProps = {{
-                                    value: this.state.username, 
+                                error={isValidUsername}
+                                inputProps={{
+                                    value: this.state.username,
                                     onChange: this.onUsernameChange
                                 }}
                                 formControlProps={{
@@ -50,22 +54,35 @@ class Form extends Component {
                                 }}
                                 inputIcon={<i style={{ color: '#929292', fontSize: '15px', marginRight: '10px' }} className="fas fa-envelope"></i>}
                             />
+                            {
+                                isValidUsername ? <p style={{
+                                    fontSize: '11px',
+                                    color: 'red'
+                                }}>Nombre de usuario invalido</p> : ''
+                            }
                         </div>
                         <div className="form-group">
                             <CustomInput
                                 labelText="Contraseña"
                                 inputProps={{
-                                    type: "password", 
-                                    value : this.state.password, 
-                                    onChange : this.onPasswordChange
+                                    type: "password",
+                                    value: this.state.password,
+                                    onChange: this.onPasswordChange
                                 }}
                                 autoComplete="current-password"
                                 id="password"
+                                error={isValidPassword}
                                 formControlProps={{
                                     fullWidth: true
                                 }}
                                 inputIcon={<i style={{ color: '#929292', fontSize: '15px', marginRight: '10px' }} className="fas fa-unlock"></i>}
                             />
+                            {
+                                isValidPassword ? <p style={{
+                                    fontSize: '11px',
+                                    color: 'red'
+                                }}>Contraseña Invalida</p> : ''
+                            }
                         </div>
                         <div className="custom-control custom-control-alternative custom-checkbox">
                             <input
@@ -75,7 +92,7 @@ class Form extends Component {
                             />
                         </div>
                         <div className="text-center">
-                            <Button className="my-2" color="primary" type="button" onClick = {this.onSubmit}>
+                            <Button disabled={(isValidUsername || isValidPassword)} className="my-2" color="primary" type="button" onClick={this.onSubmit}>
                                 Iniciar Sesión
                             </Button>
                         </div>
@@ -86,19 +103,31 @@ class Form extends Component {
     }
 
     onUsernameChange = event => {
-        this.setState({username: event.target.value});
+        const { value } = event.target
+        const usernameRegex = /^[a-zA-Z0-9-!_]{5,}$/
+        const isValid = usernameRegex.test(value)
+        this.setState({
+            username: value,
+            isValidUsername: !isValid
+        });
     }
 
     onPasswordChange = event => {
-        this.setState({password: event.target.value});
+        const { value } = event.target;
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+        const isValid = passwordRegex.test(value)
+        this.setState({ 
+            password: event.target.value,
+            isValidPassword: !isValid,
+        });
     }
 
     onSubmit = async () => {
         await this.props.logIn(this.state.username, this.state.password);
-        if(this.props.isAuth === true){
+        if (this.props.isAuth === true) {
             this.props.changePath('home');
-        }else{
-            this.setState({username: '', password: ''});
+        } else {
+            this.setState({ username: '', password: '' });
         }
     }
 }
@@ -109,4 +138,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {logIn, changePath})(Form);
+export default connect(mapStateToProps, { logIn, changePath })(Form);

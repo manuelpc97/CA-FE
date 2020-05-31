@@ -1,0 +1,9 @@
+.createAccount {
+    color: #ff9800;
+    cursor: pointer;
+}
+
+.createAccount:hover {
+    color: #c40332;
+    cursor: pointer;
+}
