@@ -16,15 +16,18 @@ const ProductChart = (props) => {
     const headerButton = [
         {
             text: 'Regresar a Productos',
-            icon: <KeyboardReturn style={{ fontSize: 30 }} />
+            icon: <KeyboardReturn style={{ fontSize: 30 }} />,
+            action: props.handleBack
         },
         {
             text: 'Contactar Agente',
-            icon: <ContactPhone style={{ fontSize: 30 }} />
+            icon: <ContactPhone style={{ fontSize: 30 }} />,
+            action: () => {}
         },
         {
             text: 'Adquirir con SEGURÚ<',
-            icon: <NoteAdd style={{ fontSize: 30 }} />
+            icon: <NoteAdd style={{ fontSize: 30 }} />,
+            action: () => {}
         },
 
     ]
@@ -42,7 +45,7 @@ const ProductChart = (props) => {
                         <div className="col-sm">
                             <div className="row">
                                 {headerButton.map((button, index) => {
-                                    return (<div className="col-sm cardHeaderButton" key={`hb-${index}`}>
+                                    return (<div className="col-sm cardHeaderButton" key={`hb-${index}`} onClick = {button.action}>
                                         {button.icon}
                                         <p className='cardHeaderButtonLabel'>{button.text}</p>
                                     </div>)

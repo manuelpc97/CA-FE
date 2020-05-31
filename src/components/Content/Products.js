@@ -52,7 +52,11 @@ class Product extends Component{
     }
 
     renderTable = () => {
-        return <ProductChart product = {this.state.currentProduct}/>
+        return <ProductChart product = {this.state.currentProduct} handleBack = {this.returnToProducts}/>
+    }
+
+    returnToProducts = () => {
+        this.setState({currentProduct: {}, showTable: false});
     }
 
     onSelectCard = (currentProduct) => {

@@ -1,9 +1,7 @@
 import '../../styles/Tab.css';
 
 import React, {Component, createRef} from 'react';
-import {connect} from 'react-redux';
 import {ListItem, ListItemText} from '@material-ui/core';
-import {selectTab} from '../../actions';
 
 class Tab extends Component{
     constructor(props){
@@ -37,6 +35,4 @@ class Tab extends Component{
     }
 }
 
-
-
-export default connect(null, {selectTab})(Tab);
+export default Tab;
