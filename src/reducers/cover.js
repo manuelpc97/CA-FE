@@ -9,5 +9,10 @@ export const cover = createReducer(initialState, {
         return Object.assign({}, state, {
             covers: action.payload
         });
+    },
+    ['GET_ALL_COVERS']: (state = [], action) => {
+        return Object.assign({}, state, {
+            covers: action.payload
+        });
     }
 });
