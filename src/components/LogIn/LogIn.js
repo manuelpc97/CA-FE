@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import Form from './Form';
 import { singUp, changePath } from '../../actions';
-
 class LogIn extends Component {
     componentWillUnmount() {
         document.body.classList.remove("bg-default");
@@ -14,7 +13,6 @@ class LogIn extends Component {
         this.props.changePath('singup');
     }
     render() {
-
         return (
             <>
                 <div className="main-content">
