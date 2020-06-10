@@ -6,6 +6,9 @@ import LogIn from './LogIn/LogIn';
 import Home from './Home';
 import SingUp from './SingUp/SingUp';
 import Notifications from './Notifications';
+import Form from './Form/Form';
+
+import myForm from './../assets/forms/form';
 
 class App extends Component { 
     componentDidMount(){
@@ -15,7 +18,8 @@ class App extends Component {
     render() {
         return <div>
             {this.props.path === '' ? 
-                <LogIn params = {this.props.params}/>: 
+                <Form  form = {myForm}/>
+                /*<LogIn params = {this.props.params}/>*/: 
             this.props.path === 'home' ? 
                 <Home params = {this.props.params}/> :
             this.props.path === 'singup' ?

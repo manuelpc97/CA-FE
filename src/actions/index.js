@@ -110,3 +110,7 @@ export const selectTab = (index, params = {}) => {
         payload: {index, params}
     }
 }
+
+export const getForm = () => {
+    return ''
+}
