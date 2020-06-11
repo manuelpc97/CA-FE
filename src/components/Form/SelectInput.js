@@ -9,6 +9,13 @@ class SelectInput extends Component{
             value: '', 
             open: false
         }
+
+        this.subquestions = [];
+        this.hasSubquestions = false;
+    }
+
+    componentDidMount(){
+        this.storeQuestion(this.state.value);
     }
 
     handleClose = () => {
@@ -21,6 +28,7 @@ class SelectInput extends Component{
 
     handleChange = (event) => {
         let {value} = event.target;
+        this.storeQuestion(value);
         this.setState({value});
     }
 
@@ -55,10 +63,34 @@ class SelectInput extends Component{
         })
     }
 
+    subquestionsExist = (key) => {
+        if(!this.props.question.inputType.subquestions) return false;
+        if(!this.props.question.inputType.subquestions[key]) return false;
+        if(this.props.question.inputType.subquestions[key].length === 0) return false;
+        return true;
+    }
+
     renderSubQuestions = (key) => {
-        if(!this.props.question.inputType.subquestions) return null;
-        if(!this.props.question.inputType.subquestions[key]) return null;
-        return <Form form = {{questions: this.props.question.inputType.subquestions[key]}}/>
+        this.hasSubquestions = this.subquestionsExist(key);
+        if(this.hasSubquestions === false) return null;
+        return <Form form = {{questions: this.props.question.inputType.subquestions[key]}} subform onStateChange = {this.handleStateChange}/>
+    }
+
+    storeQuestion = (answer) => {
+        this.hasSubquestions = this.subquestionsExist(answer);
+        let completedQuestion = {
+            question: this.props.question.question,
+            answer
+        }
+
+        if(this.hasSubquestions === true) completedQuestion['completedSubquestions'] = this.subquestions;
+        this.props.onStateChange(completedQuestion, this.props.index);
+    }
+
+    handleStateChange = (subquestions) => {
+        if(this.hasSubquestions === false) return;
+        this.subquestions = subquestions;
+        this.storeQuestion(this.state.value)
     }
 }
 

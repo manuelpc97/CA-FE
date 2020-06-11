@@ -11,11 +11,12 @@ class TextInput extends Component{
     }
 
     componentDidMount(){
-        console.log('MANUELITO: ', this.props.question);
+        this.storeQuestion(this.state.value);
     }
 
     onValueChange = (event) => {
         let {value} = event.target;
+        this.storeQuestion(value);
         this.setState({value});
     }
 
@@ -37,6 +38,15 @@ class TextInput extends Component{
                 fullWidth: true
             }}
         />;
+    }
+
+    storeQuestion = (answer) => {
+        let completedQuestion = {
+            question: this.props.question.question,
+            answer
+        }
+
+        this.props.onStateChange(completedQuestion, this.props.index);
     }
 }
 

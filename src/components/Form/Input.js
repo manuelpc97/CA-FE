@@ -20,23 +20,23 @@ class Input extends Component{
         switch(this.props.question.inputType.tag){
             case 'input': 
             case 'textarea':
-                element = <TextInput question = {this.props.question}/>
+                element = <TextInput question = {this.props.question} onStateChange = {this.props.onStateChange} index = {this.props.index}/>
             break;
 
             case 'radio':
-                element = <RadioInput question = {this.props.question}/>
+                element = <RadioInput question = {this.props.question} onStateChange = {this.props.onStateChange} index = {this.props.index}/>
             break;
 
             case 'select':
-                element = <SelectInput question = {this.props.question}/>
+                element = <SelectInput question = {this.props.question} onStateChange = {this.props.onStateChange} index = {this.props.index}/>
             break;
 
             case 'checkbox':
-                element = <CheckBoxInput question = {this.props.question}/>
+                element = <CheckBoxInput question = {this.props.question} onStateChange = {this.props.onStateChange} index = {this.props.index}/>
             break;
 
             case 'calendar':
-                element = <DateInput question = {this.props.question}/>
+                element = <DateInput question = {this.props.question} onStateChange = {this.props.onStateChange} index = {this.props.index}/>
             break;
 
             default:

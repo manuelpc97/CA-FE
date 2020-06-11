@@ -9,8 +9,13 @@ class CheckBoxInput extends Component{
         }
     }
 
+    componentDidMount(){
+        this.storeQuestion(this.state.checked);
+    }
+
     handleChange = (event) => {
         let {checked} = event.target;
+        this.storeQuestion(checked);
         this.setState({checked});
     }
 
@@ -23,6 +28,14 @@ class CheckBoxInput extends Component{
                             />
                         </FormGroup>
                 </FormControl>
+    }
+
+    storeQuestion = (checked) => {
+        let completedAnswer = {
+            question: this.props.question.question, 
+            checked
+        }
+        this.props.onStateChange(completedAnswer, this.props.index);
     }
 }
 
