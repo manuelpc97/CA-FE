@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
 import Form from './Form';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const OrangeRadio = withStyles({
+    root: {
+        '&$checked': {
+            color: '#ff9800',
+        },
+    },
+    checked: {},
+})((props) => <Radio color="default" {...props} />);
 
 class RadioInput extends Component{
     constructor(props){
@@ -36,7 +46,7 @@ class RadioInput extends Component{
 
     renderOptions = () => {
         return this.props.question.inputType.options.map((option, index) => {
-            return <FormControlLabel value={option} control={<Radio />} label={option} key = {'o' + index}/>
+            return <FormControlLabel value={option} control={<OrangeRadio />} label={option} key = {'o' + index}/>
         })
     }
     subquestionsExist = (key) => {
@@ -52,7 +62,7 @@ class RadioInput extends Component{
         return <Form form = {{questions: this.props.question.inputType.subquestions[key]}} subform onStateChange = {this.handleStateChange}/>
     }
 
-    storeQuestion = (answer) => {
+    storeQuestion = (answer, type) => {
         this.hasSubquestions = this.subquestionsExist(answer);
         let completedQuestion = {
             question: this.props.question.question,
@@ -60,12 +70,13 @@ class RadioInput extends Component{
         }
         if(this.hasSubquestions === true) completedQuestion['completedSubquestions'] = this.subquestions;
         this.props.onStateChange(completedQuestion, this.props.index);
+        this.props.requiredQuestion(true, this.props.index);
     }
 
     handleStateChange = (subquestions) => {
         if(this.hasSubquestions === false) return;
         this.subquestions = subquestions;
-        this.storeQuestion(this.state.value)
+        this.storeQuestion(this.state.value, this.props.question.inputType.type)
     }
 }
 
