@@ -35,9 +35,10 @@ class SelectInput extends Component {
 
     render() {
         return <div>
-            <FormControl className='select-input'>
+            <FormControl className='select-input' fullWidth={true}>
                 <FormLabel component="legend">{this.props.question.question}</FormLabel>
                 <Select
+                    // autoWidth={true}
                     labelId="demo-controlled-open-select-label"
                     id="demo-controlled-open-select"
                     open={this.state.open}
@@ -74,7 +75,7 @@ class SelectInput extends Component {
     renderSubQuestions = (key) => {
         this.hasSubquestions = this.subquestionsExist(key);
         if (this.hasSubquestions === false) return null;
-        return <Form form={{ questions: this.props.question.inputType.subquestions[key] }} subform onStateChange={this.handleStateChange} />
+        return <Form  parentForm={false} form={{ questions: this.props.question.inputType.subquestions[key] }} subform onStateChange={this.handleStateChange} />
     }
 
     storeQuestion = (answer) => {

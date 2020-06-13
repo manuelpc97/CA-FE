@@ -20,15 +20,22 @@ class Form extends Component {
 
     render() {
         return (<>
-            <Grid container spacing={1}>
+            <Grid container item xs={12} md={12} sm={12} lg={12} spacing={0} zeroMinWidth={true}>
                 {this.renderQuestions()}
             </Grid>
+            {this.renderSubmitButton()}
+        </>)
+    }
+
+    renderSubmitButton = () => {
+        const submitButton = this.props.parentForm ?
             <div className="submitButton">
                 <Button disabled={this.state.pendingRequiredAnswers} color="primary" type="button" onClick={this.createUser}>
                     Guardar
                 </Button>
             </div>
-        </>)
+            : '';
+        return submitButton;
     }
 
     renderQuestions = () => {

@@ -18,7 +18,7 @@ class App extends Component {
     render() {
         return <div>
             {this.props.path === '' ? 
-                <Form  form = {myForm}/>
+                <Form  form = {myForm} parentForm={true}/>
                 /*<LogIn params = {this.props.params}/>*/: 
             this.props.path === 'home' ? 
                 <Home params = {this.props.params}/> :
