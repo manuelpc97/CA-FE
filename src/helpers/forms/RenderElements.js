@@ -37,12 +37,6 @@ class RenderElements extends Component {
             this.createHTMLElement(formName, element, inputsForms, index);
         });
         this.setState({ inputsForms })
-
-        /**
-         *   this.setState({
-            [event.target.id]: event.target.value
-        })
-         */
     }
 
     getInputValues = (event, variable) => {
@@ -53,35 +47,72 @@ class RenderElements extends Component {
         this.setState({
             [variableToChange]: event.target.value
         })
-        console.log('getValues!!!!');
         this.existSubquestion(variableToChange, event.target.value);
+    }
+
+    renderSubquestions = (formName, subquestions, questionIndex, variableName) => {
+        const prefixId = `${formName}-${questionIndex}-delete`
+        const { formElements: { questions } } = this.props;
+        let subquestionsForm = [];
+        const { inputsForms } = this.state;
+        const appendSubquestions = inputsForms;
+        console.log('questionIndex ---> ', questionIndex);
+        // const previewSubquestions = document.querySelectorAll(`[id*="${questionIndex}-delete"]`);
+        // console.log('previewSubquestions --> ', previewSubquestions);
+        // console.log('(Number(previewSubquestions.length) > 0) ---> ', (Number(previewSubquestions.length) > 0));
+        // if (Number(previewSubquestions.length) > 0) {
+        //     console.log('entraaaa');
+        //     array.splice(index, 1);
+        //     previewSubquestions.forEach(questionHTML => questionHTML.parentNode.removeChild(questionHTML));
+        // }
+        const nodes = Array.prototype.slice.call(document.getElementById('form-formulario1').children);
+        if (document.querySelector(`[id*="${questionIndex}-delete"]`) !== null) {
+            const previewSubquestions = document.querySelector(`[id*="${questionIndex}-delete"]`).parentNode;
+            const indexToDeleteSubquestions = nodes.indexOf(previewSubquestions);
+            console.log('indexToDeleteSubquestions ---> ', indexToDeleteSubquestions);
+            appendSubquestions.splice(indexToDeleteSubquestions, subquestions.length);
+            console.log('appendSubquestions ----> ', appendSubquestions);
+        }
+        // setTimeout(function () {
+
+
+        subquestions.map((element, index) => {
+            this.createHTMLElement(prefixId, element, subquestionsForm, (Number(questions.length) + (index + 1)));
+        });
+        // const nodes = Array.prototype.slice.call(document.getElementById('form-formulario1').children);
+        const subquestionParentNode = document.getElementById(variableName).parentNode;
+        const indexToAppendSubquestions = nodes.indexOf(subquestionParentNode)
+        appendSubquestions.splice((Number(indexToAppendSubquestions) + 1), 0, ...subquestionsForm);
+        this.setState({ inputsForms: appendSubquestions })
+        // }.bind(this), 2000);
     }
 
     existSubquestion = (variableName, value) => {
         const { formElements } = this.props;
-        const { questions } = formElements;
+        const { questions, formName } = formElements;
         const questionIndex = variableName.split("-")[2];
         const questionObject = questions[questionIndex];
-        if (questionObject.inputType.hasOwnProperty('subquestions')) {
-            console.log('entraaaa');
-            const subquestions = questionObject.inputType.subquestions[`${value}`];
-            console.log('subquestions---> ', subquestions);
+        if (questionObject !== undefined) {
+            if (questionObject.inputType.hasOwnProperty('subquestions')) {
+                const subquestions = questionObject.inputType.subquestions[`${value}`];
+                const subquestionsVariables = {};
+                // console.log('subquestions ---> ', subquestions);
+                // if (subquestions.length > 0) {
+                subquestions.map((element, index) => {
+                    subquestionsVariables[`${formName}-question-${Number(questions.length) + (index)}`] = '';
+                })
+                this.setState({ ...subquestionsVariables })
+                this.renderSubquestions(formName, subquestions, questionIndex, variableName);
+                // }
+            }
         }
+
     }
 
     getCheckboxValues = (event) => {
         this.setState({
             [event.target.id]: event.target.checked
         })
-        console.log('getCheckboxValues!!!!');
-    }
-
-    renderSubquestions = (subquestions) => {
-        let subquestionsForm = [];
-        subquestions.map((element, index) => {
-            this.createHTMLElement(element, subquestionsForm, index);
-        });
-        this.setState({ subquestionsForm })
     }
 
     createHTMLElement = (formName, input, html, indexElement) => {
@@ -124,7 +155,7 @@ class RenderElements extends Component {
                 />
                 break;
             case 'checkbox':
-                htmlTag = < Checkbox formName={formName} input={input} checkboxId={indexElement} getValue={this.getCheckboxValues} />
+                htmlTag = <Checkbox formName={formName} input={input} checkboxId={indexElement} getValue={this.getCheckboxValues} />
                 break;
             default:
                 console.log('input is not supported');
@@ -132,18 +163,21 @@ class RenderElements extends Component {
         }
         html.push(htmlTag);
     }
+
     render() {
         const { inputsForms } = this.state;
-        console.log('values ---> ', this.state);
+        const { formElements: { formName } } = this.props;
         return (
             <>
-                {inputsForms.map((element, index) => {
-                    return (
-                        <div key={`form-element-${index}`}>
-                            {element}
-                        </div>
-                    )
-                })}
+                <div id={`form-${formName}`}>
+                    {inputsForms.map((element, index) => {
+                        return (
+                            <div key={`${formName}-element-${index}`} id={`${formName}-element-${index}`}>
+                                {element}
+                            </div>
+                        )
+                    })}
+                </div>
             </>
         )
     }

@@ -12,7 +12,7 @@ class InputSelect extends Component {
         const { options } = inputType;
         return (
             <>
-                <p>{question}</p>
+                <p id={`${formName}-question-label-${selectIndex}`}>{question}</p>
                 <select className="custom-select" id={`${formName}-question-${selectIndex}`} onChange={getValue}>
                     {options.map((option, index) => <option key={`${index}-os`} value={option}>{option}</option>)}
                 </select>

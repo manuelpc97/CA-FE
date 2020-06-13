@@ -11,10 +11,10 @@ class RadioButton extends Component {
         const { options } = inputType;
         return (
             <>
-                <p>{question}</p>
+                <p id={`${formName}-question-label-${radioIndex}`}>{question}</p>
                 {options.map((option, index) => {
                     return (
-                        <div className="form-check" key={`${index}-rb`}>
+                        <div className="form-check" key={`${index}-rb`} id={`${formName}-question-${radioIndex}`}>
                             <input className="form-check-input"
                                 type="radio" name={`rb-${radioIndex}-group`}
                                 id={`${option}-rd`} value={option}
