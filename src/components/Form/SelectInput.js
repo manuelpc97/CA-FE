@@ -54,7 +54,7 @@ class SelectInput extends Component {
                     {this.renderOptions()}
                 </Select>
             </FormControl>
-            {this.renderSubQuestions(this.state.value)}
+            {/*this.renderSubQuestions(this.state.value)*/}
         </div>
 
     }

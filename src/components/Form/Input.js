@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Grid} from '@material-ui/core';
 
 import TextInput from './TextInput';
 import RadioInput from './RadioInput';
@@ -9,9 +8,7 @@ import DateInput from './DateInput';
 
 class Input extends Component{
     render(){
-        return <Grid item sm = {6}>
-            {this.renderInput()}
-        </Grid>
+        return this.renderInput()
     }
 
     renderInput = () => {
