@@ -1,3 +1,4 @@
+import '../../styles/Input.css';
 import React, { Component } from 'react';
 import { isEmpty } from 'lodash';
 import { TextField, FormLabel } from '@material-ui/core';
@@ -21,18 +22,21 @@ class DateInput extends Component {
     }
 
     render() {
-        return <form noValidate>
-            <FormLabel>{this.props.question.question}</FormLabel>
-            <TextField
-                id="datetime-local"
-                type="date"
-                value={this.state.value}
-                InputLabelProps={{
-                    shrink: true
-                }}
-                onChange={this.handleChange}
-            />
-        </form>;
+        return <div className = 'input-container'>
+                    <form noValidate >
+                        <FormLabel>{this.props.question.question}</FormLabel>
+                        <br/>
+                        <TextField
+                            id="datetime-local"
+                            type="date"
+                            value={this.state.value}
+                            InputLabelProps={{
+                                shrink: true
+                            }}
+                            onChange={this.handleChange}
+                        />
+                    </form>
+                </div>;
     }
 
     storeQuestion = (answer) => {

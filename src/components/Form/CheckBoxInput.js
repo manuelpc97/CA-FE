@@ -1,3 +1,4 @@
+import '../../styles/Input.css'
 import React, { Component } from 'react';
 import { FormControl, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -30,10 +31,9 @@ class CheckBoxInput extends Component {
     }
 
     render() {
-        return <FormControl component="fieldset">
+        return <FormControl component="fieldset" className = 'input-container'>
             <FormGroup>
                 <FormControlLabel
-                    //  <Checkbox checked={this.state.checked} onChange={this.handleChange} name="check" /> <OrangeCheckbox checked={this.state.checked} onChange={this.handleChange} name="check" />
                     control={<OrangeCheckbox checked={this.state.checked} onChange={this.handleChange} name="check" />}
                     label={this.props.question.question}
                 />

@@ -66,10 +66,13 @@ class Form extends Component {
     }
 
     renderQuestions = () => {
-        const shouldInitializeArray = (this.props.form.questions.length !== this.completedForm.completedQuestions.length)
-
+        const shouldInitializeArray = (this.props.form.questions.length !== this.completedForm.completedQuestions.length);
         return this.props.form.questions.map((question, index) => {
-            shouldInitializeArray === true && this.completedForm.completedQuestions.push({});
+            if(shouldInitializeArray === true){
+                let questionObject = {};
+                if(question.inputType.tag === 'label') questionObject['label'] = question.question
+                this.completedForm.completedQuestions.push(questionObject);
+            }
             return <Input 
                     question={question} 
                     onStateChange={this.handleStateChange} 

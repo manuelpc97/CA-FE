@@ -5,6 +5,7 @@ import RadioInput from './RadioInput';
 import SelectInput from './SelectInput';
 import CheckBoxInput from './CheckBoxInput';
 import DateInput from './DateInput';
+import Label from './Label';
 
 class Input extends Component{
     render(){
@@ -34,6 +35,10 @@ class Input extends Component{
 
             case 'calendar':
                 element = <DateInput question = {this.props.question} onStateChange = {this.props.onStateChange} requiredQuestion = {this.props.requiredQuestion} index = {this.props.index}/>
+            break;
+
+            case 'label':
+                element = <Label question = {this.props.question} index = {this.props.index}/>
             break;
 
             default:

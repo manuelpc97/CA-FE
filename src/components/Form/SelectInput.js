@@ -1,3 +1,4 @@
+import '../../styles/Input.css';
 import React, { Component } from 'react';
 import Form from './Form';
 import { FormLabel, Select, MenuItem, FormControl } from '@material-ui/core';
@@ -35,7 +36,7 @@ class SelectInput extends Component {
 
     render() {
         return <div>
-            <FormControl className='select-input' fullWidth={true}>
+            <FormControl className='select-input input-container' fullWidth={true}>
                 <FormLabel component="legend">{this.props.question.question}</FormLabel>
                 <Select
                     // autoWidth={true}

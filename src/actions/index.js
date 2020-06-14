@@ -111,6 +111,13 @@ export const selectTab = (index, params = {}) => {
     }
 }
 
-export const getForm = () => {
-    return ''
+export const getFormById = (id) => {
+    return async (dispatch, getState) => {
+        const response = await seguroApi.get(`/form/get/` + id).catch((error) => dispatch(promptError(error)));
+        if(getState().error.error === true) return;
+        let form = response.data.form;
+        form = form.split('\'').join('\"');
+        form = JSON.parse(form);
+        dispatch({type: 'GET_FORM_BY_ID', payload: form});
+    }
 }
