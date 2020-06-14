@@ -5,7 +5,7 @@ import CardHeader from "../Common/Card/CardHeader";
 import CardBody from "../Common/Card/CardBody";
 import Button from "../Common/CustomButtons/Button.js";
 import CustomInput from "../Common/CustomInput/CustomInput.js";
-import { logIn, changePath } from '../../actions';
+import { logIn, changePath, promptNotification } from '../../actions';
 
 
 
@@ -125,6 +125,7 @@ class Form extends Component {
     onSubmit = async () => {
         await this.props.logIn(this.state.username, this.state.password);
         if (this.props.isAuth === true) {
+            this.props.promptNotification('Bienvenido!!!', 'success');
             this.props.changePath('home');
         } else {
             this.setState({ username: '', password: '' });
@@ -138,4 +139,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { logIn, changePath })(Form);
+export default connect(mapStateToProps, { logIn, changePath, promptNotification })(Form);

@@ -8,6 +8,7 @@ import * as navigatorReducer from './navigator';
 import * as errorReducer from './error';
 import * as sidebarReducer from './sidebar'
 import * as formReducer from './form';
+import * as notificationReducer from './notification';
 
 export default combineReducers(Object.assign(
     businessReducer, 
@@ -18,5 +19,6 @@ export default combineReducers(Object.assign(
     navigatorReducer, 
     errorReducer,
     sidebarReducer, 
-    formReducer
+    formReducer, 
+    notificationReducer
 ));

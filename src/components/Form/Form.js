@@ -2,7 +2,7 @@ import '../../styles/Form.css';
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import {promptError} from './../../actions';
+import {promptError, promptNotification} from './../../actions';
 
 import { Grid } from '@material-ui/core';
 
@@ -102,8 +102,9 @@ class Form extends Component {
             return;
         }
         //TODO Save answer in database
+        this.props.promptNotification('Formulario guardado', 'success');
         this.props.handleSubmit();
     }
 }
 
-export default connect(null,{promptError})(Form);
+export default connect(null,{promptError, promptNotification})(Form);

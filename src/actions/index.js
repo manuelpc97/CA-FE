@@ -97,10 +97,24 @@ export const cleanError = () => {
     }
 }
 
-export const promptError = (message) => {
+export const promptError = (message,type = 'error') => {
     return {
         type: 'ERROR', 
-        payload: message
+        payload: {message,type}
+    }
+}
+
+export const cleanNotification = () => {
+    return {
+        type: 'CLEAN_NOTIFICATION', 
+        payload: ''
+    }
+}
+
+export const promptNotification = (message,type) => {
+    return {
+        type: 'NOTIFICATION', 
+        payload: {message,type}
     }
 }
 
