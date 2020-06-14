@@ -1,13 +1,21 @@
 import {createReducer} from 'redux-create-reducer';
 
 let initialState = {
-    form: {}
+    form: {},
+    hasForm: false
 }
 
 export const form = createReducer(initialState, {
-    ['GET_FROM_BY_ID']: (state = [], action) => {
+    ['GET_FORM_BY_ID']: (state = [], action) => {
         return Object.assign({}, state, {
-            form: action.payload
+            form: action.payload, 
+            hasForm: true
+        });
+    },
+    ['CLEAR_FORM']: (state = [], action) => {
+        return Object.assign({}, state, {
+            form: action.payload,
+            hasForm: false
         });
     }
 });

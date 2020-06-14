@@ -121,3 +121,10 @@ export const getFormById = (id) => {
         dispatch({type: 'GET_FORM_BY_ID', payload: form});
     }
 }
+
+export const clearForm = () => {
+    return {
+        type: 'CLEAR_FORM', 
+        payload: {}
+    }
+}

@@ -1,6 +1,11 @@
 import '../../styles/Form.css';
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
+import {promptError} from './../../actions';
+
 import { Grid } from '@material-ui/core';
+
 import Input from './Input';
 import Button from "../Common/CustomButtons/Button.js";
 import Card from '../Common/Card/Card';
@@ -18,9 +23,6 @@ class Form extends Component {
         if (!this.props.subform) this.completedForm['formName'] = this.props.form.formName;
         this.completedForm['completedQuestions'] = [];
         this.answersRequired = [];
-    }
-    componentDidMount() {
-
     }
 
     render() {
@@ -50,7 +52,7 @@ class Form extends Component {
 
     renderSubmitButton = () => {
         const submitButton = this.props.parentForm ?
-                <Button disabled={this.state.pendingRequiredAnswers} color="warning" type="button" onClick={this.createUser}>
+                <Button color="warning" type="button" onClick={this.handleClick}>
                     Guardar
                 </Button>
             : '';
@@ -59,7 +61,7 @@ class Form extends Component {
 
     renderBackButton = () => {
         return this.props.parentForm ?
-                    <Button color="warning" type="button">
+                    <Button color="warning" type="button" onClick = {this.props.handleBack}>
                         Regresar
                     </Button>
                 : '';
@@ -93,6 +95,15 @@ class Form extends Component {
         const pendingRequiredAnswers = this.answersRequired.includes(false);
         this.setState({ pendingRequiredAnswers })
     }
+
+    handleClick = () => {
+        if(this.state.pendingRequiredAnswers){
+            this.props.promptError('Formulario Incompleto');
+            return;
+        }
+        //TODO Save answer in database
+        this.props.handleSubmit();
+    }
 }
 
-export default Form;
+export default connect(null,{promptError})(Form);
