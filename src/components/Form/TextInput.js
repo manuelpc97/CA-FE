@@ -1,52 +1,70 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import CustomInput from '../Common/CustomInput/CustomInput';
+import validateValue from '../../helpers/validate/regexInput';
+import { isEmpty } from 'lodash';
 
-
-class TextInput extends Component{
-    constructor(props){
+class TextInput extends Component {
+    constructor(props) {
         super(props);
         this.state = {
-            value: ''
+            value: '',
+            isValidValue: false,
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.storeQuestion(this.state.value);
     }
 
     onValueChange = (event) => {
-        let {value} = event.target;
-        this.storeQuestion(value);
-        this.setState({value});
+        let { value } = event.target;
+        this.storeQuestion(value, this.props.question.inputType.type);
+        this.setState({ value });
     }
 
     getInputType = () => {
-        return this.props.question.inputType.type === 'alphanumeric' ? 'text' : this.props.question.inputType.type;
+        return this.props.question.inputType.type === 'alpha' ? 'text' : this.props.question.inputType.type;
     }
 
-    render(){
-        return <CustomInput
-            labelText = {this.props.question.question}
-            inputProps = {{
-                value: this.state.value,
-                onChange: this.onValueChange, 
-                type: this.getInputType(),
-                multiline: this.props.question.inputType.tag === 'textarea',
-                rows: this.props.question.inputType.tag === 'textarea' ? 5 : 1
-            }}
-            formControlProps={{
-                fullWidth: true
-            }}
-        />;
+    render() {
+        return (
+            <>
+                <CustomInput
+                    labelText={this.props.question.question}
+                    error={!this.state.isValidValue}
+                    inputProps={{
+                        value: this.state.value,
+                        onChange: this.onValueChange,
+                        type: this.getInputType(),
+                        multiline: this.props.question.inputType.tag === 'textarea',
+                        rows: this.props.question.inputType.tag === 'textarea' ? 5 : 1
+                    }}
+                    formControlProps={{
+                        fullWidth: true
+                    }}
+                />
+                {
+                    !this.state.isValidValue ? <p style={{
+                        fontSize: '11px',
+                        color: 'red'
+                    }}>{this.props.question.question} invalido.</p> : ''
+                }
+            </>
+        )
     }
 
-    storeQuestion = (answer) => {
-        let completedQuestion = {
-            question: this.props.question.question,
-            answer
+    storeQuestion = (answer, type) => {
+        const isValid = validateValue(answer, type);
+        this.setState({ isValidValue: isValid })
+        if (isValid) {
+            let completedQuestion = {
+                question: this.props.question.question,
+                answer
+            }
+            this.props.onStateChange(completedQuestion, this.props.index);
         }
-
-        this.props.onStateChange(completedQuestion, this.props.index);
+        const isRequired = this.props.question.inputType.required ? isValid && !isEmpty(answer) : true;
+        this.props.requiredQuestion(isRequired, this.props.index);
     }
 }
 

@@ -1,12 +1,12 @@
 export default {
     "formName": "formulario1",
-    "questions":[
+    "questions": [
         {
             "question": "Nombre y apellido",
             "answer": "",
             "inputType": {
                 "tag": "input",
-                "type": "text",
+                "type": "alpha",
                 "required": true
             }
         },
@@ -15,7 +15,7 @@ export default {
             "answer": "",
             "inputType": {
                 "tag": "input",
-                "type": "alphanumeric",
+                "type": "text",
                 "required": true
             }
         },
@@ -299,5 +299,4 @@ export default {
             }
         }
     ]
-      
-    }
+}
