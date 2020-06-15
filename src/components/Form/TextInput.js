@@ -1,3 +1,4 @@
+import '../../styles/Input.css';
 import React, { Component } from 'react';
 import CustomInput from '../Common/CustomInput/CustomInput';
 import validateValue from '../../helpers/validate/regexInput';
@@ -28,7 +29,7 @@ class TextInput extends Component {
 
     render() {
         return (
-            <>
+            <div className = 'input-container'>
                 <CustomInput
                     labelText={this.props.question.question}
                     error={!this.state.isValidValue}
@@ -49,7 +50,7 @@ class TextInput extends Component {
                         color: 'red'
                     }}>{this.props.question.question} invalido.</p> : ''
                 }
-            </>
+            </div>
         )
     }
 

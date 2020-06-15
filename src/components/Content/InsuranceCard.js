@@ -9,9 +9,6 @@ import CardIcon from './../Common/Card/CardIcon';
 import CardHeader from './../Common/Card/CardHeader';
 import CardFooter from './../Common/Card/CardFooter';
 
-import {selectTab} from './../../actions';
-
-
 import styles from "./../../assets/jss/material-dashboard-react/views/dashboardStyle";
 
 const useStyles = makeStyles(styles);
@@ -29,7 +26,7 @@ const getIconFromType = (type) => {
 const InsuranceCard = (props) => {
     const classes = useStyles();
     return <Grid item xs = {4}>
-            <CardActionArea onClick = {() => props.selectTab(2, {insurance: props.insurance})}>
+            <CardActionArea onClick = {() => props.handleClick(props.insurance)}>
                 <Card>
                     <CardHeader color="warning" stats icon>
                         <CardIcon color="warning">
@@ -47,4 +44,4 @@ const InsuranceCard = (props) => {
         </Grid>
 }
 
-export default connect(null, {selectTab})(InsuranceCard);
+export default InsuranceCard

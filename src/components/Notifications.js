@@ -27,7 +27,7 @@ class Notification extends Component{
                 onClose={this.props.handleClose}
                 key={this.state.vertical + this.state.horizontal}
                 >
-                <Alert severity="error" onClose = {this.props.handleClose}>{this.props.message}</Alert>
+                <Alert severity={this.props.type} onClose = {this.props.handleClose}>{this.props.message}</Alert>
                 </Snackbar>
     }
 }

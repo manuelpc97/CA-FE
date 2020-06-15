@@ -6,7 +6,7 @@ import CardHeader from "../Common/Card/CardHeader";
 import CardBody from "../Common/Card/CardBody";
 import Button from "../Common/CustomButtons/Button.js";
 import CustomInput from "../Common/CustomInput/CustomInput.js";
-import { singUp, changePath } from '../../actions';
+import { singUp, changePath, promptNotification } from '../../actions';
 
 class SingUp extends Component {
     constructor(props) {
@@ -112,6 +112,7 @@ class SingUp extends Component {
         });
 
         if(!error.error){
+            this.props.promptNotification('Usuario creado exitosamente', 'success');
             this.props.changePath('');
         }else{
             console.log('error --->', error.message);
@@ -321,4 +322,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { singUp, changePath })(SingUp)
+export default connect(mapStateToProps, { singUp, changePath, promptNotification })(SingUp)

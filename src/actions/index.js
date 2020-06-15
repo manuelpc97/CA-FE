@@ -97,10 +97,24 @@ export const cleanError = () => {
     }
 }
 
-export const promptError = (message) => {
+export const promptError = (message,type = 'error') => {
     return {
         type: 'ERROR', 
-        payload: message
+        payload: {message,type}
+    }
+}
+
+export const cleanNotification = () => {
+    return {
+        type: 'CLEAN_NOTIFICATION', 
+        payload: ''
+    }
+}
+
+export const promptNotification = (message,type) => {
+    return {
+        type: 'NOTIFICATION', 
+        payload: {message,type}
     }
 }
 
@@ -111,6 +125,20 @@ export const selectTab = (index, params = {}) => {
     }
 }
 
-export const getForm = () => {
-    return ''
+export const getFormById = (id) => {
+    return async (dispatch, getState) => {
+        const response = await seguroApi.get(`/form/get/` + id).catch((error) => dispatch(promptError(error)));
+        if(getState().error.error === true) return;
+        let form = response.data.form;
+        form = form.split('\'').join('\"');
+        form = JSON.parse(form);
+        dispatch({type: 'GET_FORM_BY_ID', payload: form});
+    }
+}
+
+export const clearForm = () => {
+    return {
+        type: 'CLEAR_FORM', 
+        payload: {}
+    }
 }

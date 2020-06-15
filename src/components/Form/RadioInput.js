@@ -1,3 +1,4 @@
+import '../../styles/Input.css';
 import React, {Component} from 'react';
 import Form from './Form';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
@@ -33,7 +34,7 @@ class RadioInput extends Component{
     }
     
     render(){
-        return <div>
+        return <div className = 'input-container'>
                     <FormControl component="fieldset">
                         <FormLabel component="legend">{this.props.question.question}</FormLabel>
                         <RadioGroup aria-label="gender" name="gender1" value={this.state.value} onChange={this.handleChange}>

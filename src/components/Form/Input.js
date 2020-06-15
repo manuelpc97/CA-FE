@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
-import {Grid} from '@material-ui/core';
 
 import TextInput from './TextInput';
 import RadioInput from './RadioInput';
 import SelectInput from './SelectInput';
 import CheckBoxInput from './CheckBoxInput';
 import DateInput from './DateInput';
+import Label from './Label';
 
 class Input extends Component{
     render(){
-        return <Grid item sm = {6}>
-            {this.renderInput()}
-        </Grid>
+        return this.renderInput()
     }
 
     renderInput = () => {
@@ -37,6 +35,10 @@ class Input extends Component{
 
             case 'calendar':
                 element = <DateInput question = {this.props.question} onStateChange = {this.props.onStateChange} requiredQuestion = {this.props.requiredQuestion} index = {this.props.index}/>
+            break;
+
+            case 'label':
+                element = <Label question = {this.props.question} index = {this.props.index}/>
             break;
 
             default:

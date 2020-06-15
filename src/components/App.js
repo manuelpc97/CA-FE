@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import {cleanError} from './../actions';
+import {cleanError, cleanNotification} from './../actions';
 
 import LogIn from './LogIn/LogIn';
 import Home from './Home';
 import SingUp from './SingUp/SingUp';
 import Notifications from './Notifications';
-import Form from './Form/Form';
-
-import myForm from './../assets/forms/form';
 
 class App extends Component { 
     componentDidMount(){
-        
     }
 
     render() {
         return <div>
             {this.props.path === '' ? 
-                <Form  form = {myForm} parentForm={true}/>
-                /*<LogIn params = {this.props.params}/>*/: 
+                <LogIn params = {this.props.params}/>: 
             this.props.path === 'home' ? 
                 <Home params = {this.props.params}/> :
             this.props.path === 'singup' ?
@@ -28,13 +23,24 @@ class App extends Component {
             <Notifications 
                 open = {this.props.error} 
                 message = {this.props.errorMessage} 
+                handleClose = {this.onErrorClose}
+                type = {this.props.errorType}
+            />
+            <Notifications 
+                open = {this.props.notification} 
+                message = {this.props.notificationMessage} 
                 handleClose = {this.onNotificationClose}
+                type = {this.props.notificationType}
             />
         </div>
          
     }
 
     onNotificationClose = () => {
+        this.props.cleanNotification();
+    }
+
+    onErrorClose = () => {
         this.props.cleanError();
     }
 }
@@ -44,8 +50,12 @@ const mapStateToProp = (state) => {
         path: state.navigator.path,
         params: state.navigator.params, 
         error: state.error.error,
-        errorMessage: state.error.message
+        errorMessage: state.error.message,
+        errorType: state.error.type,
+        notification: state.notification.notification,
+        notificationMessage: state.notification.message,
+        notificationType: state.notification.type
     }
 }
 
-export default connect(mapStateToProp, {cleanError})(App);
+export default connect(mapStateToProp, {cleanError, cleanNotification})(App);
