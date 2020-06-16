@@ -58,8 +58,6 @@ class Insurances extends Component{
             this.onSuccess();
         }else{
             await this.props.getFormById(insurance.form);
-            console.log('MANUELITO FORM: ', this.props.form);
-            console.log('MANUELITO FLAG: ', this.props.hasForm);
             if(this.props.hasForm === true){
                 this.showForm();
             }
