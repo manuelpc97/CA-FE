@@ -3,7 +3,14 @@ import {connect} from 'react-redux';
 import {Grid} from '@material-ui/core';
 import ProductCard from './ProductCard';
 import ProductChart from './ProductChart';
-import {getAllProducts, getProductsByInsurance, getAllBusiness, getAllCovers} from './../../actions';
+import Form from './../Form/Form';
+import {getAllProducts, 
+    getProductsByInsurance, 
+    getAllBusiness, 
+    getAllCovers,
+    getFormById, 
+    clearForm, 
+    promptNotification} from './../../actions';
 
 class Product extends Component{
     constructor(props){
@@ -11,7 +18,8 @@ class Product extends Component{
         this.manager = [];
         this.state = {
             showTable: false,
-            currentProduct: {}
+            currentProduct: {},
+            showForm: false
         }
     }
 
@@ -28,7 +36,9 @@ class Product extends Component{
     render(){
         this.buildProductManager();
         return <Grid container spacing = {1}>
-            {this.state.showTable === false ? this.renderProducts(): this.renderTable()}
+            {this.state.showTable === true ? this.renderTable() : 
+            ( this.state.showForm === true? this.renderForm() :
+            this.renderProducts()) }
         </Grid>
     }
 
@@ -52,15 +62,49 @@ class Product extends Component{
     }
 
     renderTable = () => {
-        return <ProductChart product = {this.state.currentProduct} handleBack = {this.returnToProducts}/>
+        return <ProductChart 
+                product = {this.state.currentProduct} 
+                handleBack = {this.returnToProducts} 
+                handleForm = {this.openForm} 
+                handleAgent = {this.handleAgentContact}/>
+    }
+
+    renderForm = () => {
+        return <Form form = {this.props.form} parentForm = {true} handleBack = {this.handleFormBack}/>
     }
 
     returnToProducts = () => {
-        this.setState({currentProduct: {}, showTable: false});
+        this.setState({currentProduct: {}, showTable: false, showForm: false});
     }
 
     onSelectCard = (currentProduct) => {
-        this.setState({currentProduct, showTable: true});
+        this.setState({currentProduct, showTable: true, showForm: false});
+    }
+
+    openForm = async () =>{
+        console.log(this.state.currentProduct);
+        if(!this.state.currentProduct.form){
+            this.props.promptNotification('Formulario no disponible', "warning");
+            return;
+        }
+
+        await this.props.getFormById(this.state.currentProduct.form);
+        if(this.props.hasForm === true){
+            this.setState({showForm: true, showTable: false})
+        }
+    }
+
+    handleAgentContact = () => {
+        //TODO handle agent comunication
+        this.props.promptNotification('Contacto enviado al agente', 'success');
+    }
+
+    handleFormBack = () => {
+        this.setState({showForm: false, showTable: true});
+    }
+
+    handleFormSubmit = () => {
+        this.handleFormBack();
     }
 }
 
@@ -69,8 +113,18 @@ const mapStateToProps = (state) => {
         products: state.product.products,
         businessList: state.business.businesses, 
         covers: state.cover.covers, 
-        insurances: state.insurance.insurances
+        insurances: state.insurance.insurances,
+        form: state.form.form,
+        hasForm: state.form.hasForm
     }
 }
 
-export default connect(mapStateToProps, {getAllProducts, getProductsByInsurance, getAllBusiness, getAllCovers})(Product);
+const actions = {getAllProducts, 
+                getProductsByInsurance, 
+                getAllBusiness, 
+                getAllCovers, 
+                getFormById, 
+                clearForm, 
+                promptNotification};
+
+export default connect(mapStateToProps, actions)(Product);
