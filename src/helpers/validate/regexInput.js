@@ -15,7 +15,6 @@ export default function validateValue(value, type) {
             isValid = (/\S+@\S+\.\S+/).test(value)
             break;
         default:
-            console.log('type ---> ', type);
             console.log('inpu type not supported');
             break;
     }
