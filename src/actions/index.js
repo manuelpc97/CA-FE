@@ -90,17 +90,9 @@ export const createUser = async (user) => {
     return await seguroApi.post('/user/create', user);
 }
 
-export const saveFilledForm = async (filledForm, userId, productId) => {
-    const timestamp = new Date();
-    console.log('filledForm, userId, productId ---> ', filledForm, userId, productId);
-    const body = {
-        filledForm: JSON.stringify(filledForm).split('"').join('\''),
-        userId,
-        productId,
-        timestamp,
-    }
+export const saveFilledForm = async (filledForm) => {
     return async (dispatch, getState) => {
-        var response = await seguroApi.post('/form/saveFilled', body).catch(error => dispatch(promptError('Error creando formulario completo')));
+        var response = await seguroApi.post('/form/saveFilled', filledForm).catch(error => dispatch(promptError('Error creando formulario completo')));
         if (getState().error.error === true) return;
         if (response.status !== 200) {
             dispatch(promptError('Error creando formulario completo'));

@@ -101,9 +101,6 @@ class Form extends Component {
             this.props.promptError('Formulario Incompleto');
             return;
         }
-        //TODO Save answer in database
-        console.log('this.completedForm ---> ', this.completedForm);
-        console.log('this.props.insurances ---> ', this.props.insurances);
         this.saveForm();
         //await this.props.saveFilledForm(this.completedForm, this.props.user._id, 'productId')
         this.props.promptNotification('Formulario guardado', 'success');
@@ -112,7 +109,14 @@ class Form extends Component {
 
     saveForm = async () => {
         const { error } = this.props;
-        await this.props.saveFilledForm(this.completedForm, this.props.user._id, 'productId')
+        const timestamp = new Date();
+        const filledForm2Save = {
+            filledForm: JSON.stringify(this.completedForm).split('"').join('\''),
+            userId:  this.props.user._id,
+            productId: 'productId',
+            timestamp,
+        }
+        await this.props.saveFilledForm(filledForm2Save)
         if(!error.error){
             this.props.promptNotification('Formulario guardado exitosamente', 'success');
             this.props.changePath('');

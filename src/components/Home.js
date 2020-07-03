@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Grid} from '@material-ui/core';
 
-import Sidebar from './Sidebar/Sidebar';
+import Sidebar from './sidebar/Sidebar';
 import Content from './Content/Content';
 
 class Home extends Component{
