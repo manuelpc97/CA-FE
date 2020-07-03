@@ -1,8 +1,8 @@
 import '../../styles/Form.css';
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {promptError, promptNotification} from './../../actions';
+import { saveFilledForm, promptError, promptNotification } from './../../actions';
 
 import { Grid } from '@material-ui/core';
 
@@ -26,23 +26,23 @@ class Form extends Component {
     }
 
     render() {
-        return ( !this.props.subform ? <>
+        return (!this.props.subform ? <>
             <Grid container item xs={12} md={12} sm={12} lg={12} spacing={0} zeroMinWidth={true}>
                 <Grid item sm={2} />
-                <Grid item sm = {8}>
+                <Grid item sm={8}>
                     <Card>
-                        <CardHeader color = 'warning'>
+                        <CardHeader color='warning'>
                             <h3>{this.props.form.formName}</h3>
                         </CardHeader>
-                        <CardBody className = 'form-body'>
+                        <CardBody className='form-body'>
                             {this.renderQuestions()}
                         </CardBody>
-                        <CardFooter> 
+                        <CardFooter>
                             <div>
-                                {this.renderBackButton()}   
-                                {this.renderSubmitButton()}   
-                            </div>    
-                         </CardFooter>
+                                {this.renderBackButton()}
+                                {this.renderSubmitButton()}
+                            </div>
+                        </CardFooter>
                     </Card>
                 </Grid>
                 <Grid item sm={2} />
@@ -52,8 +52,8 @@ class Form extends Component {
 
     renderSubmitButton = () => {
         const submitButton = this.props.parentForm ?
-                <Button color="warning" type="button" onClick={this.handleClick}>
-                    Guardar
+            <Button color="warning" type="button" onClick={this.handleClick}>
+                Guardar
                 </Button>
             : '';
         return submitButton;
@@ -61,26 +61,26 @@ class Form extends Component {
 
     renderBackButton = () => {
         return this.props.parentForm ?
-                    <Button color="warning" type="button" onClick = {this.props.handleBack}>
-                        Regresar
+            <Button color="warning" type="button" onClick={this.props.handleBack}>
+                Regresar
                     </Button>
-                : '';
+            : '';
     }
 
     renderQuestions = () => {
         const shouldInitializeArray = (this.props.form.questions.length !== this.completedForm.completedQuestions.length);
         return this.props.form.questions.map((question, index) => {
-            if(shouldInitializeArray === true){
+            if (shouldInitializeArray === true) {
                 let questionObject = {};
-                if(question.inputType.tag === 'label') questionObject['label'] = question.question
+                if (question.inputType.tag === 'label') questionObject['label'] = question.question
                 this.completedForm.completedQuestions.push(questionObject);
             }
-            return <Input 
-                    question={question} 
-                    onStateChange={this.handleStateChange} 
-                    requiredQuestion={this.handleRequiredQuestions} 
-                    index={index} 
-                    key = {'k' + index}/>
+            return <Input
+                question={question}
+                onStateChange={this.handleStateChange}
+                requiredQuestion={this.handleRequiredQuestions}
+                index={index}
+                key={'k' + index} />
         })
     }
 
@@ -97,14 +97,36 @@ class Form extends Component {
     }
 
     handleClick = () => {
-        if(this.state.pendingRequiredAnswers){
+        if (this.state.pendingRequiredAnswers) {
             this.props.promptError('Formulario Incompleto');
             return;
         }
         //TODO Save answer in database
+        console.log('this.completedForm ---> ', this.completedForm);
+        console.log('this.props.insurances ---> ', this.props.insurances);
+        this.saveForm();
+        //await this.props.saveFilledForm(this.completedForm, this.props.user._id, 'productId')
         this.props.promptNotification('Formulario guardado', 'success');
         this.props.handleSubmit();
     }
+
+    saveForm = async () => {
+        const { error } = this.props;
+        await this.props.saveFilledForm(this.completedForm, this.props.user._id, 'productId')
+        if(!error.error){
+            this.props.promptNotification('Formulario guardado exitosamente', 'success');
+            this.props.changePath('');
+        }else{
+            console.log('error --->', error.message);
+        }
+    }
 }
 
-export default connect(null,{promptError, promptNotification})(Form);
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.currentUser,
+        insurances: state.insurance.insurances,
+    }
+}
+
+export default connect(mapStateToProps, { saveFilledForm, promptError, promptNotification })(Form);

@@ -12,6 +12,13 @@ export const form = createReducer(initialState, {
             hasForm: true
         });
     },
+    ['SAVED_FILLED_FORM']: (state = [], action) => {
+        console.log('action --->', action);
+        return Object.assign({}, state, {
+            form: action.payload, 
+            hasForm: false,
+        });
+    },
     ['CLEAR_FORM']: (state = [], action) => {
         return Object.assign({}, state, {
             form: action.payload,
