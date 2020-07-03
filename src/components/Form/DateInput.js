@@ -22,21 +22,22 @@ class DateInput extends Component {
     }
 
     render() {
-        return <div className = 'input-container'>
-                    <form noValidate >
-                        <FormLabel>{this.props.question.question}</FormLabel>
-                        <br/>
-                        <TextField
-                            id="datetime-local"
-                            type="date"
-                            value={this.state.value}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            onChange={this.handleChange}
-                        />
-                    </form>
-                </div>;
+        return <div className='input-container'>
+            <form noValidate >
+                <FormLabel>{this.props.question.question}</FormLabel>
+                <br />
+                <TextField
+                    fullWidth
+                    id="datetime-local"
+                    type="date"
+                    value={this.state.value}
+                    InputLabelProps={{
+                        shrink: true
+                    }}
+                    onChange={this.handleChange}
+                />
+            </form>
+        </div>;
     }
 
     storeQuestion = (answer) => {

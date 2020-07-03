@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class Label extends Component{
     render(){
-        return <div><h3>{this.props.question.question}</h3></div>
+        return <div><h4>{this.props.question.question}</h4></div>
     }
 }
 

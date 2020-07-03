@@ -29,7 +29,7 @@ class TextInput extends Component {
 
     render() {
         return (
-            <div className = 'input-container'>
+            <div className='input-container'>
                 <CustomInput
                     labelText={this.props.question.question}
                     error={!this.state.isValidValue}

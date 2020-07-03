@@ -55,7 +55,7 @@ class SelectInput extends Component {
                     {this.renderOptions()}
                 </Select>
             </FormControl>
-            {/*this.renderSubQuestions(this.state.value)*/}
+            {this.renderSubQuestions(this.state.value)}
         </div>
 
     }
@@ -76,7 +76,7 @@ class SelectInput extends Component {
     renderSubQuestions = (key) => {
         this.hasSubquestions = this.subquestionsExist(key);
         if (this.hasSubquestions === false) return null;
-        return <Form  parentForm={false} form={{ questions: this.props.question.inputType.subquestions[key] }} subform onStateChange={this.handleStateChange} />
+        return <Form parentForm={false} form={{ questions: this.props.question.inputType.subquestions[key] }} subform onStateChange={this.handleStateChange} />
     }
 
     storeQuestion = (answer) => {
