@@ -1,22 +1,22 @@
 import {createReducer} from 'redux-create-reducer';
 
 const initialState = {
-    error: false,
+    notification: false,
     message: '',
     type: ''
 }
 
-export const error = createReducer(initialState,{
-    ['ERROR']: (state = {}, action) => {
+export const notification = createReducer(initialState,{
+    ['NOTIFICATION']: (state = {}, action) => {
         return Object.assign({}, state, {
-            error: true, 
+            notification: true, 
             message: action.payload.message,
             type: action.payload.type
         })
     }, 
-    ['CLEAN_ERROR']: (state = {}, action) => {
+    ['CLEAN_NOTIFICATION']: (state = {}, action) => {
         return Object.assign({},state, {
-            error: false, 
+            notification: false, 
             message: '',
             type: ''
         });

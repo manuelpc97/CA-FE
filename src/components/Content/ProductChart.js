@@ -22,12 +22,12 @@ const ProductChart = (props) => {
         {
             text: 'Contactar Agente',
             icon: <ContactPhone style={{ fontSize: 30 }} />,
-            action: () => {}
+            action: props.handleAgent
         },
         {
             text: 'Adquirir con SEGURÚ',
             icon: <NoteAdd style={{ fontSize: 30 }} />,
-            action: () => {}
+            action: props.handleForm
         },
 
     ]
