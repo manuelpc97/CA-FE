@@ -104,6 +104,7 @@ class Product extends Component{
     }
 
     handleFormSubmit = () => {
+        //TO DO logic for sending the form in an email
         this.handleFormBack();
     }
 }

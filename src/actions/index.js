@@ -90,7 +90,7 @@ export const createUser = async (user) => {
     return await seguroApi.post('/user/create', user);
 }
 
-export const saveFilledForm = async (filledForm) => {
+export const saveFilledForm = (filledForm) => {
     return async (dispatch, getState) => {
         var response = await seguroApi.post('/form/saveFilled', filledForm).catch(error => dispatch(promptError('Error creando formulario completo')));
         if (getState().error.error === true) return;
@@ -99,6 +99,7 @@ export const saveFilledForm = async (filledForm) => {
             return;
         }
         dispatch({ type: 'SAVED_FILLED_FORM', payload: response.data });
+        dispatch(promptNotification('Formulario guardado exitosamente', 'success'));
     }
 }
 

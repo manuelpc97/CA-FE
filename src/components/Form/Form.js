@@ -96,33 +96,30 @@ class Form extends Component {
         this.setState({ pendingRequiredAnswers })
     }
 
-    handleClick = () => {
+    handleClick = async () => {
         if (this.state.pendingRequiredAnswers) {
             this.props.promptError('Formulario Incompleto');
             return;
         }
-        this.saveForm();
-        //await this.props.saveFilledForm(this.completedForm, this.props.user._id, 'productId')
+        await this.saveForm();
         this.props.promptNotification('Formulario guardado', 'success');
         this.props.handleSubmit();
     }
 
     saveForm = async () => {
-        const { error } = this.props;
         const timestamp = new Date();
         const filledForm2Save = {
             filledForm: JSON.stringify(this.completedForm).split('"').join('\''),
             userId:  this.props.user._id,
-            productId: 'productId',
             timestamp,
         }
+
+        const tag = this.props.insurance? 'insurance' : 'product'
+        filledForm2Save[`${tag}Id`] = this.props[tag]._id
+        console.log('Saving: ', filledForm2Save);
+        this.props.handleBack();
         await this.props.saveFilledForm(filledForm2Save)
-        if(!error.error){
-            this.props.promptNotification('Formulario guardado exitosamente', 'success');
-            this.props.changePath('');
-        }else{
-            console.log('error --->', error.message);
-        }
+        this.props.handleSubmit();
     }
 }
 

@@ -10,9 +10,9 @@ import {getAllInsurances, clearForm,selectTab, getFormById} from '../../actions'
 class Insurances extends Component{
     constructor(props){
         super(props); 
-        this.selectedInsurance = {};
         this.state = {
-            showForm: false
+            showForm: false,
+            insurance: {}
         }
     }
 
@@ -25,7 +25,12 @@ class Insurances extends Component{
                 <Grid container spacing = {1}>
                     {this.getInsuranceCards()}
                 </Grid> : 
-                <Form form = {this.props.form} parentForm = {true} handleBack = {this.onBack} handleSubmit = {this.onSuccess}/>
+                <Form 
+                    form = {this.props.form} 
+                    parentForm = {true} 
+                    handleBack = {this.onBack} 
+                    handleSubmit = {this.onSuccess} 
+                    insurance = {this.state.insurance}/>
     }
     
     getInsuranceCards = () => {
@@ -43,17 +48,17 @@ class Insurances extends Component{
     }
 
     onBack = () => {
-        this.selectedInsurance = {};
+        this.setState({insurance: {}});
         this.props.clearForm();
         this.dismissForm();
     }
 
     onSuccess = () => {
-        this.props.selectTab(2, {insurance: this.selectedInsurance})
+        this.props.selectTab(2, {})
     }
 
     onCardClick = async (insurance) => {
-        this.selectedInsurance = insurance;
+        this.setState({insurance});
         if(!insurance.form) {
             this.onSuccess();
         }else{
