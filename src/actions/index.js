@@ -15,6 +15,13 @@ export const getAllInsurances = () => {
         dispatch({ type: 'GET_ALL_INSURANCES', payload: response.data });
     }
 }
+export const getAllProductsObtained = (userId) => {
+    return async (dispatch, getState) => {
+        const response = await seguroApi.get(`/form/get/userForms/${userId}`).catch((error) => dispatch(promptError(error)));
+        if (getState().error.error === true) return;
+        dispatch({ type: 'GET_PRODUCTS_OBTAINED', payload: response.data });
+    }
+}
 export const getAllProducts = () => {
     return async (dispatch, getState) => {
         const response = await seguroApi.get(`/product/get`).catch((error) => dispatch(promptError(error)));

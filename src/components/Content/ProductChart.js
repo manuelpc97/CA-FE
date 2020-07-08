@@ -58,7 +58,7 @@ const ProductChart = (props) => {
             <CardBody>
                 <Table
                     tableHeaderColor="warning"
-                    tableHead={["#", "Cobertura", "Informacion", "Deducible", "Coaseguro"]}
+                    tableHead={["#", "Cobertura", "InformaciÓn", "Deducible", "Coaseguro"]}
                     tableData={getTableData(props.product.covers)}
                 />
             </CardBody>

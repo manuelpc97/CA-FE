@@ -4,17 +4,44 @@ import Card from './../Common/Card/Card';
 import { Grid } from '@material-ui/core';
 import CardBody from '../Common/Card/CardBody';
 import CardHeader from './../Common/Card/CardHeader';
-import CardFooter from './../Common/Card/CardFooter';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import Table from '../Common/Table/Table';
 import FaceIcon from '@material-ui/icons/Face';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import DescriptionIcon from '@material-ui/icons/Description';
-
+import { getAllProductsObtained } from './../../actions';
 class Profile extends Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            productsObtained: [],
+            tableData: []
+        }
+    }
+    async componentDidMount() {
         console.log('USER: ', this.props.user);
+        await this.props.getAllProductsObtained(this.props.user._id);
+        this.getProductsObtained();
+        await this.transformTableData();
+    }
+
+    getProductsObtained() {
+        this.setState({ productsObtained: this.props.productsObtained })
+    }
+    transformTableData() {
+        const { productsObtained } = this.state.productsObtained;
+        const tableData = productsObtained.map((product, index) => {
+            const { businessName, insuranceName, yearPayment, timestamp } = product;
+            return [
+                (index += 1),
+                businessName,
+                insuranceName,
+                `${yearPayment} L.`,
+                timestamp
+            ]
+        })
+        this.setState({ tableData })
     }
 
     render() {
@@ -26,19 +53,12 @@ class Profile extends Component {
                     </CardHeader>
                     <CardBody>
                         <Grid container spacing={3}>
-                            {/* <p>{`Bienvenido ${this.props.user}`}</p> */}
                             <Grid item xs={6}>
                                 <img
                                     alt="..."
                                     src="/images/profile/profile.jpg"
                                     width='100%'
                                 />
-                                {/* <div style={{
-                                        display: 'flex',
-                                        justifyContent: 'center'
-                                    }}>
-                                        <AccountBoxIcon style={{ fontSize: 250, color: 'gray' }} />
-                                    </div> */}
                             </Grid>
                             <Grid item xs={6} style={{ marginTop: '2%', display: 'grid' }}>
                                 <Grid item xs={12}>
@@ -57,16 +77,15 @@ class Profile extends Component {
                                     <p> <PhoneIphoneIcon /> Teléfono: {this.props.user.phone}</p>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <p> <DescriptionIcon /> Pólizas Obtenidas: </p>
+                                    <p> <DescriptionIcon /> Pólizas Obtenidas: {this.state.productsObtained.totalProducts} </p>
                                 </Grid>
-                                {/* <img
-                                    alt="..."
-                                    src="/images/profile/profile.jpg"
-                                    width='50%'
-                                /> */}
                             </Grid>
                         </Grid>
-                        {/* <p>Pólizas Obtenidas: </p> */}
+                        <Table
+                            tableHeaderColor="warning"
+                            tableHead={["#", "Banco", "Producto", "Pago Anual", "Fecha"]}
+                            tableData={this.state.tableData}
+                        />
                     </CardBody>
                 </Card>
             </Grid>
@@ -74,10 +93,13 @@ class Profile extends Component {
     }
 }
 
+const actions = { getAllProductsObtained };
+
 const mapStateToProps = (state) => {
     return {
-        user: state.user.currentUser
+        user: state.user.currentUser,
+        productsObtained: state.form.productsObtained,
     }
 }
 
-export default connect(mapStateToProps, {})(Profile);
+export default connect(mapStateToProps, actions)(Profile);

@@ -42,9 +42,9 @@ class Input extends Component {
                 element = <Label question={this.props.question} index={this.props.index} />
                 break;
 
-            case 'image':
-                element = <FileInput question={this.props.question} onStateChange={this.props.onStateChange} requiredQuestion={this.props.requiredQuestion} index={this.props.index} />
-                break;
+            // case 'image':
+            //     element = <FileInput question={this.props.question} onStateChange={this.props.onStateChange} requiredQuestion={this.props.requiredQuestion} index={this.props.index} />
+            //     break;
             default:
                 element = null
                 break;

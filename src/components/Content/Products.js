@@ -70,7 +70,12 @@ class Product extends Component{
     }
 
     renderForm = () => {
-        return <Form form = {this.props.form} parentForm = {true} handleBack = {this.handleFormBack}/>
+        return <Form 
+        form = {this.props.form} 
+        parentForm = {true} 
+        handleBack = {this.handleFormBack} 
+        handleSubmit = {this.onSuccess} 
+        product={this.state.currentProduct}/>
     }
 
     returnToProducts = () => {
@@ -79,6 +84,10 @@ class Product extends Component{
 
     onSelectCard = (currentProduct) => {
         this.setState({currentProduct, showTable: true, showForm: false});
+    }
+
+    onSuccess = () => {
+        this.props.promptNotification('Formulario guardado', "success"); 
     }
 
     openForm = async () =>{
