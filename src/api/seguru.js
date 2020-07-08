@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL : 'http://localhost:9000'
+    baseURL : 'http://shrouded-cove-22974.herokuapp.com'
 });
