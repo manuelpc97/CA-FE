@@ -30,7 +30,7 @@ class Form extends Component {
                         <span className="btn-inner--icon">
                             <img
                                 alt="..."
-                                src="/CA-FE//images/login/loginIcon.jpg"
+                                src="/CA-FE/images/login/loginIcon.jpg"
                                 width='70%'
                             />
                         </span>
