@@ -56,7 +56,7 @@ class Profile extends Component {
                             <Grid item xs={6}>
                                 <img
                                     alt="..."
-                                    src="/images/profile/profile.jpg"
+                                    src="/CA-FE/images/profile/profile.jpg"
                                     width='100%'
                                 />
                             </Grid>
