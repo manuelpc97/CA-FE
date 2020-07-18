@@ -102,8 +102,13 @@ class Form extends Component {
             return;
         }
         await this.saveForm();
-        this.props.promptNotification('Formulario guardado', 'success');
-        this.props.handleSubmit();
+        if((this.props.insurance && this.props.insurance.type === 'medical')){
+            this.props.promptNotification('En un momento un agente se pondra en contacto', 'success');
+            this.props.handleBack();
+        }else{
+            this.props.promptNotification('Formulario guardado', 'success');
+            this.props.handleSubmit();
+        }
     }
 
     saveForm = async () => {
@@ -117,9 +122,7 @@ class Form extends Component {
         const tag = this.props.insurance? 'insurance' : 'product'
         filledForm2Save[`${tag}Id`] = this.props[tag]._id
         console.log('Saving: ', filledForm2Save);
-        this.props.handleBack();
         await this.props.saveFilledForm(filledForm2Save)
-        this.props.handleSubmit();
     }
 }
 
