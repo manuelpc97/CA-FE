@@ -111,17 +111,27 @@ class Form extends Component {
         }
     }
 
+    calculateYearPayment = (form) => {
+        if(this.props.insurance) return 0;
+        let {rate, emission} = this.props.product;
+        let {completedQuestions} = form;
+        let value = completedQuestions.find(({question}) => question === 'Valor de mercado actual del Vehículo (Lempiras)').answer;
+        return parseInt((parseFloat(value) * (parseFloat(rate)/100)) *  1.15 + parseFloat(emission));
+    }
+
     saveForm = async () => {
         const timestamp = new Date();
+        const yearPayment = this.calculateYearPayment(this.completedForm).toString();
         const filledForm2Save = {
             filledForm: JSON.stringify(this.completedForm).split('"').join('\''),
             userId:  this.props.user._id,
             timestamp,
+            yearPayment
         }
-
         const tag = this.props.insurance? 'insurance' : 'product'
         filledForm2Save[`${tag}Id`] = this.props[tag]._id
         console.log('Saving: ', filledForm2Save);
+        this.props.handleBack();
         await this.props.saveFilledForm(filledForm2Save)
     }
 }

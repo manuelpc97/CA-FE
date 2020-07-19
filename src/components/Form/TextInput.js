@@ -60,7 +60,7 @@ class TextInput extends Component {
         if (isValid) {
             let completedQuestion = {
                 question: this.props.question.question,
-                answer
+                answer,
             }
             this.props.onStateChange(completedQuestion, this.props.index);
         }

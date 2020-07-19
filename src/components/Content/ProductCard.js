@@ -18,7 +18,6 @@ const ProductCard = (props) => {
                         </CardHeader>
                         <CardBody>
                             <h4 className={classes.cardTitle}>{props.product.insurance.name}</h4>
-                            <p className={classes.cardCategory}>Pago anual de {props.product.yearPayment} L.</p>
                         </CardBody>
                     </Card>
                 </CardActionArea>

@@ -32,7 +32,7 @@ class Profile extends Component {
     transformTableData() {
         const { productsObtained } = this.state.productsObtained;
         const tableData = productsObtained.map((product, index) => {
-            const { businessName, insuranceName, yearPayment, timestamp } = product;
+            const { businessName, insuranceName, timestamp, yearPayment } = product;
             return [
                 (index += 1),
                 businessName,

@@ -38,9 +38,6 @@ const ProductChart = (props) => {
                     <div className="row">
                         <div className="col-sm">
                             <h4 className={classes.cardTitleWhite}>{props.product.business.name}</h4>
-                            <p className={classes.cardCategoryWhite}>
-                                Pago anual de {props.product.yearPayment} L.
-                            </p>
                         </div>
                         <div className="col-sm">
                             <div className="row">
